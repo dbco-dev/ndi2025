@@ -1,0 +1,202 @@
+1. SENSIBILISER À LA SOBRIÉTÉ NUMÉRIQUE
+
+Q1 Quel est l’impact environnemental moyen d’un email avec une pièce jointe de 1 Mo ?
+a) Équivalent à une ampoule allumée 1 minute
+b) Équivalent à un trajet de 1 km en voiture
+c) Équivalent à la consommation d’un smartphone en veille pendant 24h
+d) Équivalent à la fabrication d’une clé USB
+Réponse correcte : a (source : ADEME)
+
+réponse: Dans un mail envoyé par le prof à un collègue, objet : « Réunion sur le numérique responsable »
+
+« Salut Marc,
+Hier, la direction nous a parlé de l’impact des mails. Savais-tu qu’un email avec une pièce jointe de 1 Mo, c’est Équivalent à une ampoule allumée 1 minute ?
+Je me demande si on ne devrait pas limiter la taille des PJ dans nos échanges…
+À demain,»*
+
+Q2 Un data center consomme autant d’électricité que… ?
+a) Une petite ville
+b) Un pays comme la Suisse
+c) Un réfrigérateur familial
+d) Un avion en vol
+Réponse correcte : a
+
+(dans un fichier « Notes_perso.txt » sur le Bureau)
+Un data center consomme autant d’électricité qu’une petite ville. Vraiment ? Je dois en parler en cours de techno… »
+Source : rapport GreenIT.fr 2024 »
+
+
+
+2. ENCOURAGER LE RÉEMPLOI ET LE RECONDITIONNEMENT
+
+Q1 Jusqu'à combien de pourcentage de CO2 on économise avec le reconditionner? 
+
+a) 10% de CO2
+b) 30% de CO2
+c) 50% de CO2
+d) 80% de CO2
+
+réponse correcte : d
+
+(dans un mail du prof à l’intendant, objet : « Ordinateurs en panne »)
+*« Bonjour M. Dupont,
+J’ai 3 PCs en panne dans ma salle. Plutôt que de les jeter, ne pourrait-on pas les faire reconditionner ? J’ai lu que ça économisait jusqu’à 80% de CO2 ?
+Merci de me dire ce que tu en penses.
+Cordialement,»*
+Réponse correcte : d
+
+
+Q2 Pour un PC à 800€ quelle est le prix d'un équivalent reconditionner? 
+
+a) 750€
+b) 620€
+c) 430€
+d) 510€
+Réponse correcte : c
+
+(dans un fichier pdf « Facture PC_classe.pdf »)
+
+Coût PC reconditionné : 	430€
+Coût neuf : 			800€
+Économie par PC : 		370€
+
+
+
+3. PROMOUVOIR L’USAGE DE LINUX
+
+Q1 Quelle distribution linux est spécialement conçue pour l’éducation?
+
+a) Ubuntu
+b) Debian Edu
+c) PrimTux
+d) Fedora
+
+Réponse correcte : c
+
+(dans un mail du prof à un ami, objet : « J’ai installé Linux ! »)
+*« Salut Thomas,
+J’ai enfin osé installer Linux sur mon vieux PC. Résultat : il est devenu ultra-rapide ! Le plus drôle, c’est que j’ai choisi une distribution spécialement conçue pour l’éducation, elle s’appelle PrimTux ?
+Je te conseille vivement d’essayer !
+ »*
+
+
+Q2 Pourquoi Linux est-il une arme contre l’obsolescence programmée ?
+
+a) Parce qu’il est toujours gratuit
+b) Parce qu’il fonctionne sur du matériel ancien
+c) Parce qu’il est toujours mis à jour
+d) Parce qu’il est open source et ne cache rien
+Réponse correcte : a b c d
+
+réponse dans un fichier « Pourquoi_Linux.pdf » dans le dossier « Perso »)
+Linux se distingue comme une solution efficace contre l’obsolescence programmée, et ce pour plusieurs raisons :
+- Parce qu’il est toujours gratuit
+Contrairement à de nombreux systèmes d’exploitation propriétaires, Linux ne nécessite aucun achat de licence. Cela permet à chacun de l’utiliser sans coût supplémentaire, même sur des machines anciennes.
+- Parce qu’il fonctionne sur du matériel ancien
+Linux est réputé pour sa légèreté. Des distributions comme Lubuntu ou Puppy Linux sont conçues pour redonner vie à des ordinateurs datés, prolongeant ainsi leur durée de vie.
+- Parce qu’il est toujours mis à jour
+La communauté open source assure des mises à jour régulières, garantissant sécurité et compatibilité, même pour des configurations matérielles vieillissantes.
+- Parce qu’il est open source et ne cache rien
+L’accès au code source permet aux utilisateurs de l’adapter à leurs besoins, évitant ainsi les restrictions imposées par les éditeurs de logiciels propriétaires.
+En résumé, Linux allonge la durée de vie du matériel, réduit les coûts et offre une transparence totale, faisant de lui un allié de choix contre l’obsolescence programmée.
+
+
+4. MUTUALISER LES RESSOURCES VIA LA FORGE DES COMMUNS
+
+Q1 quelle est l'objectif principal de la Forge des communs numériques?
+
+a) Vendre des logiciels libres aux écoles
+b) Centraliser et partager des ressources numériques libres
+c) Former les enseignants à la programmation
+d) Créer un réseau social pour les profs
+Réponse correcte : b
+
+(dans un mail du prof à la liste des enseignants, objet : « Ressources libres »)
+*« Chers collègues,
+J’ai découvert un site génial pour partager nos ressources pédagogiques libres : la Forge des communs numériques. Leur objectif principal, c’est Centraliser et partager des ressources numériques libres ?
+Je vous invite à y jeter un œil !
+
+
+Q2 Moodle est un : ?
+
+a) Logiciel propriétaire
+b) Commun numérique éducatif
+c) Réseau social
+d) Outil payant 
+Réponse correcte : b
+
+(dans un fichier « Moodle ou pronote.txt » dans le dossier « Travail »)
+*« Idées pour l’année :
+
+Utiliser Moodle plutôt que Pronote pour les cours en ligne.
+Participer à la Forge des communs pour mutualiser nos exercices.
+Savais-tu que Moodle est un exemple de Commun numérique éducatif ?
+
+
+
+5. ACCOMPAGNER LA TRANSITION NUMÉRIQUE ÉCORESPONSABLE
+
+Q1 Quelle labelle récompense un engager dans une démarche écoresponsable
+
+a) Eco-Ecole
+b) E3D
+c) Green IT
+d) Numérique Responsable
+Réponse correcte : b
+
+(dans un fichier du prof , E3D.pdf » dans le dossier Projets)
+
+Le label E3D (École ou Établissement en Démarche globale de Développement Durable) est une reconnaissance nationale attribuée par le ministère chargé de l’éducation nationale aux écoles, collèges, lycées, centres de formation d'apprentis et autres structures scolaires qui s'engagent dans une démarche globale de développement durable.
+ Cette démarche vise à transformer l'établissement en un lieu d'apprentissage global du développement durable, en intégrant les principes du développement durable dans tous les aspects de la vie scolaire, des enseignements, de la gestion et de la maintenance de la structure, tout en s'ouvrant sur le territoire par des partenariats avec les collectivités locales et d'autres acteurs.
+
+Q2 Quel est le premier levier à la sobriété numérique selon toi ?
+
+a) Acheter du matériel neuf éco-labellisé
+b) Sensibiliser les usagers
+c) Virtualiser les serveurs
+d) Passer au tout-numérique »*
+Réponse correcte : b
+
+(dans un fichier « Plan_action_numérique.pdf » dans le dossier « Projets »)
+
+*« Actions prioritaires pour la sensibilisation à la sobriété numérique :
+
+Sensibiliser les élèves à la sobriété numérique.
+Éteindre les box internet le soir.
+Passer à Linux sur les vieux PCs.
+Quel est le premier levier selon toi ?
+
+
+
+
+6. FAVORISER LA CO-CONSTRUCTION DE SOLUTIONS LOCALES
+
+Q1 Quel est l’avantage principal de co-construction d’un outil numérique pour la classe avec ses usagers (éléves,profs,ects...)
+
+a) Réduire les coûts de licence
+b) Adapter les outils aux besoins spécifiques des usagers
+c) Éviter les mises à jour logicielles
+d) Supprimer le besoin de maintenance
+Réponse correcte : b
+
+(dans un fichier du prof, « ateliers co-construction d’un outil numérique.pdf » dans travail)
+Ateliers de co-construction d’un outil numérique pour la classe
+La co-construction d’un outil numérique avec ses usagers (élèves, enseignants, personnel éducatif) représente une approche innovante et centrée sur l’humain. Contrairement à une solution imposée, cette méthode permet d’adapter les outils aux besoins spécifiques des usagers, garantissant ainsi une meilleure adéquation avec les pratiques pédagogiques et les attentes du terrain. En impliquant directement les acteurs concernés, on favorise l’appropriation de l’outil, son utilité et son efficacité au quotidien.
+Les ateliers organisés dans ce cadre visent à recueillir les retours, tester des prototypes et ajuster les fonctionnalités en temps réel. Cette démarche collaborative réduit les risques de rejet ou de sous-utilisation, tout en stimulant la créativité et l’engagement de chacun.
+
+
+Q2 Quel est l’outil libre pour co-construire des ressources pédagogiques en ligne ?
+a) Framapad
+b) Google Docs
+c) OneNote
+d) Evernote »*
+Réponse correcte : a
+
+
+(dans un fichier « Idées_projets.txt » dans le dossier « Divers »)
+
+*« Outils pour co-construire :
+
+Framapad (pour écrire à plusieurs)
+Nextcloud (pour partager des fichiers)
+BigBlueButton (pour les visios)
