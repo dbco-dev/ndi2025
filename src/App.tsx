@@ -3,6 +3,7 @@ import Desktop from './components/blocks/desktop'
 import AppIcon from './components/blocks/appIcon'
 import TopBar from './components/blocks/topBar'
 import Window from './components/blocks/window'
+import WeirdTextField from './components/blocks/weirdTextField'
 
 function App() {
   const [openApps, setOpenApps] = useState<[uuid: number, title: string, x: number, y: number][]>([[1, "Notepad", 200, 200], [2, "Calculator", 300, 300], [3, "Paint", 400, 400]])
@@ -19,6 +20,20 @@ function App() {
     setOpenApps(prev => prev.filter(app => app[0] !== uuid))
   }
 
+  const handleWindowClick = (uuid: number, position: { x: number, y: number }) => {
+    setOpenApps(prev => {
+      const appIndex = prev.findIndex(app => app[0] === uuid)
+      if (appIndex === -1) return prev
+      
+      const app = prev[appIndex]
+      const updatedApp: [number, string, number, number] = [timestamp(), app[1], position.x, position.y]
+      
+      const newApps = [...prev]
+      newApps.splice(appIndex, 1)
+      return [...newApps, updatedApp]
+    })
+  }
+
   return (
     <div 
       style={{
@@ -32,10 +47,11 @@ function App() {
       <AppIcon onOpenApp={handleOpenApp} />
       <TopBar />
       {openApps.map((app) => (
-        <Window key={app[0]} uuid={app[0]} title={app[1]} initialPosition={{ x: app[2], y: app[3] }} initialSize={{ width: 300, height: 200 }} onClose={() => handleCloseWindow(app[0])}>
+        <Window key={app[0]} uuid={app[0]} title={app[1]} initialPosition={{ x: app[2], y: app[3] }} initialSize={{ width: 300, height: 200 }} onClose={() => handleCloseWindow(app[0])} onClick={(position) => handleWindowClick(app[0], position)}>
           <div className="w-full h-full"></div>
         </Window>
       ))}
+      <WeirdTextField />
     </div>
   )
 }

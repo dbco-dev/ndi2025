@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import WindowButton from '../ui/windowButton';
 
-function Window({ uuid, title, children, initialPosition, initialSize, onClose }: { uuid?: number, title?: string, children: React.ReactNode, initialPosition?: { x: number, y: number }, initialSize?: { width: number, height: number }, onClose?: () => void }) {
+function Window({ uuid, title, children, initialPosition, initialSize, onClose, onClick }: { uuid?: number, title?: string, children: React.ReactNode, initialPosition?: { x: number, y: number }, initialSize?: { width: number, height: number }, onClose?: () => void, onClick?: (position: { x: number, y: number }) => void }) {
     const [position, setPosition] = useState(initialPosition || { x: 400, y: 400 });
     const [size, setSize] = useState(initialSize || { width: 500, height: 300 });
     const [isDragging, setIsDragging] = useState(false);
@@ -166,6 +166,12 @@ function Window({ uuid, title, children, initialPosition, initialSize, onClose }
         }
     }
 
+    const handleWindowClick = (e: React.MouseEvent) => {
+        if (onClick) {
+            onClick(position)
+        }
+    }
+
     return (
         <div 
             ref={windowRef}
@@ -184,6 +190,7 @@ function Window({ uuid, title, children, initialPosition, initialSize, onClose }
                 height: `${size.height}px`,
                 cursor: isDragging ? 'grabbing' : 'default'
             }}
+            onClick={handleWindowClick}
         >
             {/* Bord gauche */}
             <div
