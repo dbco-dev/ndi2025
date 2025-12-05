@@ -78,7 +78,7 @@ function WeirdTextField() {
         >
             <input 
                 type="text" 
-                className="h-10 w-32 bg-white rounded-md p-2"
+                className="h-10 w-32 bg-black rounded-md p-2"
                 onMouseEnter={handleMouseEnter}
                 onChange={handleInputChange}
                 value={text}

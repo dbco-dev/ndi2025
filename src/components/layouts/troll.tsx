@@ -1,6 +1,6 @@
 import Window from '../blocks/window'
 
-function Troll({ uuid, title, initialPosition, initialSize, onClose, onClick, shouldBlink }: { uuid: number, title: string, initialPosition: { x: number, y: number }, initialSize: { width: number, height: number }, onClose: () => void, onClick: (position: { x: number, y: number }) => void, shouldBlink: boolean }) {
+function Troll({ title, initialPosition, onClose, onClick, shouldBlink }: { uuid: number, title: string, initialPosition: { x: number, y: number }, initialSize: { width: number, height: number }, onClose: () => void, onClick: (position: { x: number, y: number }) => void, shouldBlink: boolean }) {
     return (
         <Window title={title} initialPosition={initialPosition} initialSize={{ width: 600, height: 350 }} onClose={onClose} onClick={onClick} shouldBlink={shouldBlink}>
             <div className="w-full h-full bg-black"> 

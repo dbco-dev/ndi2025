@@ -13,9 +13,8 @@ const INITIAL_GAME_SPEED = 250 // Vitesse initiale plus lente
 const MIN_GAME_SPEED = 80 // Vitesse minimale (maximum de difficulté)
 const SPEED_INCREMENT = 3 // Réduction de la vitesse à chaque pomme (accélération)
 
-function Snake({ uuid, title, initialPosition, initialSize, onClose, onClick, shouldBlink }: { uuid: number, title: string, initialPosition: { x: number, y: number }, initialSize: { width: number, height: number }, onClose: () => void, onClick: (position: { x: number, y: number }) => void, shouldBlink?: boolean }) {
+function Snake({title, onClose, onClick, shouldBlink }: { uuid: number, title: string, initialPosition: { x: number, y: number }, initialSize: { width: number, height: number }, onClose: () => void, onClick: (position: { x: number, y: number }) => void, shouldBlink?: boolean }) {
     const [snake, setSnake] = useState<Position[]>(INITIAL_SNAKE)
-    const [direction, setDirection] = useState<Direction>(INITIAL_DIRECTION)
     const [food, setFood] = useState<Position>({ x: 15, y: 15 })
     const [score, setScore] = useState(0)
     const [gameOver, setGameOver] = useState(false)
@@ -188,7 +187,6 @@ function Snake({ uuid, title, initialPosition, initialSize, onClose, onClick, sh
             if (keyCode === 'ArrowUp' || key === 'z') {
                 if (currentDirection !== 'DOWN') {
                     directionRef.current = 'UP'
-                    setDirection('UP')
                 }
                 e.preventDefault()
                 return
@@ -196,7 +194,6 @@ function Snake({ uuid, title, initialPosition, initialSize, onClose, onClick, sh
             if (keyCode === 'ArrowDown' || key === 's') {
                 if (currentDirection !== 'UP') {
                     directionRef.current = 'DOWN'
-                    setDirection('DOWN')
                 }
                 e.preventDefault()
                 return
@@ -204,7 +201,6 @@ function Snake({ uuid, title, initialPosition, initialSize, onClose, onClick, sh
             if (keyCode === 'ArrowLeft' || key === 'q') {
                 if (currentDirection !== 'RIGHT') {
                     directionRef.current = 'LEFT'
-                    setDirection('LEFT')
                 }
                 e.preventDefault()
                 return
@@ -212,7 +208,6 @@ function Snake({ uuid, title, initialPosition, initialSize, onClose, onClick, sh
             if (keyCode === 'ArrowRight' || key === 'd') {
                 if (currentDirection !== 'LEFT') {
                     directionRef.current = 'RIGHT'
-                    setDirection('RIGHT')
                 }
                 e.preventDefault()
                 return
@@ -236,7 +231,6 @@ function Snake({ uuid, title, initialPosition, initialSize, onClose, onClick, sh
     // Réinitialiser le jeu
     const resetGame = () => {
         setSnake(INITIAL_SNAKE)
-        setDirection(INITIAL_DIRECTION)
         directionRef.current = INITIAL_DIRECTION
         setFood(generateFood(INITIAL_SNAKE))
         setScore(0)
@@ -256,7 +250,7 @@ function Snake({ uuid, title, initialPosition, initialSize, onClose, onClick, sh
     }, [generateFood])
 
     return (
-        <Window title={title} initialPosition={initialPosition} initialSize={{ width: 400, height: 450 }} onClose={onClose} onClick={onClick} shouldBlink={shouldBlink}>
+        <Window title={title} initialPosition={{x: 50, y: 50}} initialSize={{ width: 400, height: 800 }} onClose={onClose} onClick={onClick} shouldBlink={shouldBlink}>
             <div 
                 className="w-full h-full p-4 flex flex-col items-center"
                 style={{

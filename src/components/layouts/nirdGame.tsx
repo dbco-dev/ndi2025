@@ -32,7 +32,7 @@ const sections: Section[] = questionsData.sections
 const badges: Badge[] = questionsData.badges
 const questions: Question[] = questionsData.questions
 
-function NirdGame({ uuid, title, initialPosition, initialSize, onClose, onClick, shouldBlink }: { uuid: number, title: string, initialPosition: { x: number, y: number }, initialSize: { width: number, height: number }, onClose: () => void, onClick: (position: { x: number, y: number }) => void, shouldBlink?: boolean }) {
+function NirdGame({ title, onClose, onClick, shouldBlink }: { title: string, onClose: () => void, onClick: (position: { x: number, y: number }) => void, shouldBlink?: boolean }) {
     const [gameStarted, setGameStarted] = useState(false)
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
     const [loading, setLoading] = useState<string | null>(null)
@@ -42,7 +42,6 @@ function NirdGame({ uuid, title, initialPosition, initialSize, onClose, onClick,
     const [timeLeft, setTimeLeft] = useState(30)
     const [timerExpired, setTimerExpired] = useState(false)
     const [totalScore, setTotalScore] = useState(0)
-    const [timeAtAnswer, setTimeAtAnswer] = useState<number | null>(null)
     const [sectionScores, setSectionScores] = useState<Record<number, number>>({})
     const [earnedBadges, setEarnedBadges] = useState<Map<number, 'bronze' | 'argent' | 'or'>>(new Map())
     const [newBadgeEarned, setNewBadgeEarned] = useState<{ sectionId: number, level: 'bronze' | 'argent' | 'or' } | null>(null)
@@ -50,6 +49,26 @@ function NirdGame({ uuid, title, initialPosition, initialSize, onClose, onClick,
     const [gameFinished, setGameFinished] = useState(false)
     const [correctAnswersCount, setCorrectAnswersCount] = useState(0)
     const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+    
+    // Calculer les dimensions en plein écran au montage
+    const [fullscreenSize, setFullscreenSize] = useState(() => ({
+        width: typeof window !== 'undefined' ? window.innerWidth : 1920,
+        height: typeof window !== 'undefined' ? window.innerHeight : 1080
+    }))
+    const fullscreenPosition = { x: 0, y: 0 }
+    
+    // Mettre à jour les dimensions si la fenêtre est redimensionnée
+    useEffect(() => {
+        const updateSize = () => {
+            setFullscreenSize({
+                width: window.innerWidth,
+                height: window.innerHeight
+            })
+        }
+        
+        window.addEventListener('resize', updateSize)
+        return () => window.removeEventListener('resize', updateSize)
+    }, [])
     
     const maxScore = questions.length * 25 // 24 questions × 25 points max = 600 points
 
@@ -64,7 +83,6 @@ function NirdGame({ uuid, title, initialPosition, initialSize, onClose, onClick,
         setCorrectAnswer(null)
         setAnswerResults({})
         setShowNextButton(false)
-        setTimeAtAnswer(null)
 
         const questionId = currentQuestion.id
 
@@ -125,7 +143,6 @@ function NirdGame({ uuid, title, initialPosition, initialSize, onClose, onClick,
     const handleAnswerClick = async (question: number, answer: string) => {
         // Sauvegarder le temps restant au moment de la réponse
         const currentTimeLeft = timeLeft
-        setTimeAtAnswer(currentTimeLeft)
         setLoading(answer)
         
         // Arrêter le timer immédiatement
@@ -159,7 +176,6 @@ function NirdGame({ uuid, title, initialPosition, initialSize, onClose, onClick,
                 setCorrectAnswersCount(prev => prev + 1)
                 
                 // Mettre à jour timeAtAnswer pour l'affichage
-                setTimeAtAnswer(pointsEarned)
                 
                 // Ajouter les points à la section correspondante
                 const questionData = questions.find(q => q.id === question)
@@ -252,7 +268,6 @@ function NirdGame({ uuid, title, initialPosition, initialSize, onClose, onClick,
             setCorrectAnswer(null)
             setShowNextButton(false)
             setTimerExpired(false)
-            setTimeAtAnswer(null)
         }
     }
 
@@ -267,7 +282,6 @@ function NirdGame({ uuid, title, initialPosition, initialSize, onClose, onClick,
         setTimeLeft(30)
         setTimerExpired(false)
         setTotalScore(0)
-        setTimeAtAnswer(null)
         setSectionScores({})
         setEarnedBadges(new Map())
         setNewBadgeEarned(null)
@@ -380,7 +394,7 @@ function NirdGame({ uuid, title, initialPosition, initialSize, onClose, onClick,
     // Page de démarrage
     if (!gameStarted) {
         return (
-            <Window title={title} initialPosition={initialPosition} initialSize={{ width: 700, height: 600 }} onClose={onClose} onClick={onClick} shouldBlink={shouldBlink}>
+            <Window title={title} initialPosition={fullscreenPosition} initialSize={fullscreenSize} onClose={onClose} onClick={onClick} shouldBlink={shouldBlink}>
                 <div className="w-full h-full p-2 sm:p-4 md:p-6 lg:p-8 flex flex-col items-center justify-center bg-gradient-to-br from-indigo-100 via-purple-50 to-pink-100 relative overflow-y-auto">
                     {/* Effets de lumière en arrière-plan */}
                     <div className="absolute top-0 left-0 w-full h-full opacity-30">
@@ -470,7 +484,7 @@ function NirdGame({ uuid, title, initialPosition, initialSize, onClose, onClick,
     // Écran de récapitulatif
     if (gameFinished) {
         return (
-            <Window title="Récapitulatif" initialPosition={{ x: 200, y: 200 }} initialSize={{ width: 800, height: 800 }} shouldBlink={shouldBlink}>
+            <Window title="Récapitulatif" initialPosition={fullscreenPosition} initialSize={fullscreenSize} shouldBlink={shouldBlink}>
                 <div className="w-full h-full p-2 sm:p-3 md:p-4 lg:p-6 flex flex-col overflow-y-auto bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 relative">
                     {/* Effets de lumière */}
                     <div className="absolute top-0 right-0 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 bg-blue-300/20 rounded-full mix-blend-multiply filter blur-3xl -z-0"></div>
@@ -634,7 +648,7 @@ function NirdGame({ uuid, title, initialPosition, initialSize, onClose, onClick,
     }
 
     return (
-        <Window title={title} initialPosition={initialPosition} initialSize={initialSize} onClose={onClose} onClick={onClick} shouldBlink={shouldBlink}>
+        <Window title={title} initialPosition={fullscreenPosition} initialSize={fullscreenSize} onClose={onClose} onClick={onClick} shouldBlink={shouldBlink}>
             <div className="w-full h-full p-2 sm:p-3 md:p-4 lg:p-6 flex flex-col bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 relative overflow-y-auto">
                 {/* Effets de lumière subtils */}
                 <div className="absolute top-0 right-0 w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 bg-blue-300/20 rounded-full mix-blend-multiply filter blur-3xl -z-0"></div>
@@ -791,6 +805,14 @@ function NirdGame({ uuid, title, initialPosition, initialSize, onClose, onClick,
                         Question {currentQuestionIndex + 1} / {questions.length}
                     </p>
                     <div className="flex items-center justify-center sm:justify-end gap-2 sm:gap-3">
+                        <button
+                            onClick={handleSkipQuestion}
+                            disabled={correctAnswer !== null}
+                            className="relative w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-gradient-to-r from-orange-400/30 to-amber-400/30 backdrop-blur-md rounded-full hover:from-orange-500/40 hover:to-amber-500/40 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed border border-orange-300/50 shadow-lg hover:shadow-xl hover:scale-110"
+                            title="Passer la question"
+                        >
+                            <span className="text-lg sm:text-xl">⏭️</span>
+                        </button>
                         <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16">
                             <svg className="transform -rotate-90 w-full h-full" viewBox="0 0 36 36">
                                 <circle
@@ -819,30 +841,18 @@ function NirdGame({ uuid, title, initialPosition, initialSize, onClose, onClick,
                                 />
                             </svg>
                         </div>
+                        <button
+                            onClick={handleStopGame}
+                            className="relative w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center bg-gradient-to-r from-red-400/30 to-rose-400/30 backdrop-blur-md rounded-full hover:from-red-500/40 hover:to-rose-500/40 transition-all duration-300 border border-red-300/50 shadow-lg hover:shadow-xl hover:scale-110"
+                            title="Arrêter la partie"
+                        >
+                            <span className="text-lg sm:text-xl">⏹️</span>
+                        </button>
                     </div>
-                </div>
-
-                {/* Boutons d'action */}
-                <div className="mb-2 sm:mb-3 md:mb-4 flex flex-col sm:flex-row gap-2 sm:gap-3 justify-end relative z-10">
-                    <button
-                        onClick={handleSkipQuestion}
-                        disabled={correctAnswer !== null}
-                        className="relative px-3 sm:px-4 md:px-5 py-2 sm:py-3 bg-gradient-to-r from-orange-400/30 to-amber-400/30 backdrop-blur-md text-white rounded-xl sm:rounded-2xl hover:from-orange-500/40 hover:to-amber-500/40 transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed text-xs sm:text-sm font-semibold border border-orange-300/50 shadow-lg hover:shadow-xl hover:scale-105 glass-button overflow-hidden w-full sm:w-auto"
-                    >
-                        <div className="absolute inset-0 animate-shine opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
-                        <span className="relative z-10">⏭️ Passer la question</span>
-                    </button>
-                    <button
-                        onClick={handleStopGame}
-                        className="relative px-3 sm:px-4 md:px-5 py-2 sm:py-3 bg-gradient-to-r from-red-400/30 to-rose-400/30 backdrop-blur-md text-white rounded-xl sm:rounded-2xl hover:from-red-500/40 hover:to-rose-500/40 transition-all duration-500 text-xs sm:text-sm font-semibold border border-red-300/50 shadow-lg hover:shadow-xl hover:scale-105 glass-button overflow-hidden w-full sm:w-auto"
-                    >
-                        <div className="absolute inset-0 animate-shine opacity-0 hover:opacity-100 transition-opacity duration-500"></div>
-                        <span className="relative z-10">⏹️ Arrêter la partie</span>
-                    </button>
                 </div>
                 
                 <div className="flex-1 relative z-10 min-h-0">
-                    <div className="backdrop-blur-xl bg-white/30 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 lg:p-6 mb-3 sm:mb-4 md:mb-6 border border-white/40 shadow-xl glass-card relative overflow-hidden">
+                    <div className="backdrop-blur-xl m-2 relative overflow-hidden">
                         <div className="absolute inset-0 animate-shine opacity-30"></div>
                         <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold text-gray-800 leading-relaxed relative z-10">{currentQuestion.text}</h2>
                     </div>
@@ -863,18 +873,6 @@ function NirdGame({ uuid, title, initialPosition, initialSize, onClose, onClick,
 
                     {correctAnswer !== null && (
                         <>
-                            {timeAtAnswer !== null && Object.values(answerResults).some(result => result === true) && (
-                                <div className="mt-3 sm:mt-4 md:mt-6 p-3 sm:p-4 md:p-5 backdrop-blur-xl bg-gradient-to-r from-emerald-400/20 to-green-400/20 border border-emerald-300/50 rounded-xl sm:rounded-2xl shadow-xl">
-                                    <h3 className="text-sm sm:text-base font-semibold text-gray-800 mb-2 flex items-center gap-2">
-                                        <span className="text-lg sm:text-xl">✅</span>
-                                        Bonne réponse !
-                                    </h3>
-                                    <p className="text-xs sm:text-sm text-gray-700">
-                                        Vous avez gagné <strong className="text-emerald-700">{timeAtAnswer} points</strong> pour cette question !
-                                        {timeAtAnswer === 25 && <span className="ml-2 text-[10px] sm:text-xs bg-white/30 px-2 py-1 rounded-full">⚡ Réponse rapide !</span>}
-                                    </p>
-                                </div>
-                            )}
                             <div className="mt-3 sm:mt-4 md:mt-6 p-3 sm:p-4 md:p-5 backdrop-blur-xl bg-gradient-to-r from-blue-400/20 to-indigo-400/20 border border-blue-300/50 rounded-xl sm:rounded-2xl shadow-xl">
                                 <h3 className="text-sm sm:text-base font-semibold text-gray-800 mb-2 sm:mb-3 flex items-center gap-2">
                                     <span className="text-lg sm:text-xl">💡</span>
