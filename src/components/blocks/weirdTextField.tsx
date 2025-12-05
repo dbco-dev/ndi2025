@@ -1,16 +1,28 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 function WeirdTextField() {
     const [position, setPosition] = useState({ x: 0, y: 0 })
     const [text, setText] = useState('')
+    const containerRef = useRef<HTMLDivElement>(null)
 
     const handleMouseEnter = () => {
-        // Génère une position aléatoire sur l'écran
-        const maxX = window.innerWidth - 128 // 128px = largeur du champ (w-32)
-        const maxY = window.innerHeight - 40 // 40px = hauteur du champ (h-10)
+        if (!containerRef.current) return
         
-        const randomX = Math.floor(Math.random() * maxX)
-        const randomY = Math.floor(Math.random() * maxY)
+        // Obtient les dimensions du conteneur parent (celui avec position: relative)
+        const parentElement = containerRef.current.offsetParent as HTMLElement
+        if (!parentElement) return
+        
+        const parentRect = parentElement.getBoundingClientRect()
+        
+        // Calcule les limites en tenant compte de la taille du champ
+        const fieldWidth = 128 // 128px = largeur du champ (w-32)
+        const fieldHeight = 40 // 40px = hauteur du champ (h-10)
+        
+        const maxX = parentRect.width - fieldWidth
+        const maxY = parentRect.height - fieldHeight
+        
+        const randomX = Math.max(0, Math.floor(Math.random() * maxX))
+        const randomY = Math.max(0, Math.floor(Math.random() * maxY))
         
         setPosition({ x: randomX, y: randomY })
     }
@@ -69,6 +81,7 @@ function WeirdTextField() {
 
     return (
         <div 
+            ref={containerRef}
             className="absolute"
             style={{
                 left: `${position.x}px`,
@@ -78,11 +91,11 @@ function WeirdTextField() {
         >
             <input 
                 type="text" 
-                className="h-10 w-32 bg-black rounded-md p-2"
+                className="h-10 w-[300px] bg-zinc-300 rounded-md p-2"
                 onMouseEnter={handleMouseEnter}
                 onChange={handleInputChange}
                 value={text}
-                placeholder="Essayez de me cliquer..."
+                placeholder="Essayez saisir quelque chose..."
             />
         </div>
     )

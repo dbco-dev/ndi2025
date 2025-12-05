@@ -379,6 +379,7 @@ function Window({ title, children, initialPosition, initialSize, onClose, onClic
                 items-center justify-between
                 rounded-sm
                 overflow-scroll
+                text-black
                 ">
                     {children}
             </div>

@@ -62,7 +62,7 @@ function NirdGame({ title, onClose, onClick, shouldBlink }: { title: string, onC
         const updateSize = () => {
             setFullscreenSize({
                 width: window.innerWidth,
-                height: window.innerHeight
+                height: window.innerHeight - 100
             })
         }
         

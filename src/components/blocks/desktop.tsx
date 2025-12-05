@@ -6,6 +6,7 @@ import Troll from '../layouts/troll'
 import Snake from '../layouts/snake'
 import Window from './window'
 import Files from './files'
+import SuicideTxt from '../layouts/suicideTxt'
 
 interface IconPosition {
     x: number
@@ -249,6 +250,8 @@ function Desktop() {
         ? <Snake key={app[0]} uuid={app[0]} title={app[1]} initialPosition={{ x: app[2], y: app[3] }} initialSize={{ width: 300, height: 200 }} onClose={() => handleCloseWindow(app[0])} onClick={(position) => handleWindowClick(app[0], position)} shouldBlink={blinkingWindows.has(app[0])} /> 
         : app[1] === "Files"
         ? <Files key={app[0]} uuid={app[0]} title={app[1]} initialPosition={{ x: app[2], y: app[3] }} initialSize={{ width: 300, height: 200 }} onClose={() => handleCloseWindow(app[0])} onClick={(position) => handleWindowClick(app[0], position)} shouldBlink={blinkingWindows.has(app[0])} />
+        : app[1] === "SuicideTxt"
+        ? <SuicideTxt key={app[0]} uuid={app[0]} title={app[1]} initialPosition={{ x: app[2], y: app[3] }} initialSize={{ width: 300, height: 200 }} onClose={() => handleCloseWindow(app[0])} onClick={(position) => handleWindowClick(app[0], position)} shouldBlink={blinkingWindows.has(app[0])} />
         : <Window key={app[0]} uuid={app[0]} title={app[1]} initialPosition={{ x: app[2], y: app[3] }} initialSize={{ width: 300, height: 200 }} onClose={() => handleCloseWindow(app[0])} onClick={(position) => handleWindowClick(app[0], position)} shouldBlink={blinkingWindows.has(app[0])}>
           <div className="w-full h-full"></div>
         </Window>
