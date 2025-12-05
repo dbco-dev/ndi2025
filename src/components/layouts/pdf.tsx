@@ -26,35 +26,68 @@ function Pdf({ uuid, fileName, snippet, initialPosition, initialSize, onClose, o
       uuid={uuid}
       title={fileName || 'Document.pdf'}
       initialPosition={initialPosition}
-      initialSize={initialSize || { width: 600, height: 400 }}
+      initialSize={initialSize || { width: 520, height: 735 }}
       onClose={onClose}
       onClick={onClick}
       shouldBlink={shouldBlink}
     >
-      <div className="w-full h-full bg-zinc-100 text-zinc-900 flex flex-col">
-        {/* Toolbar */}
-        <div className="flex items-center gap-2 px-3 py-2 bg-zinc-200 border-b border-zinc-300">
-          <button className="px-2 py-1 bg-white border border-zinc-300 rounded text-xs hover:bg-zinc-50" onClick={handleZoomOut}>−</button>
-          <div className="text-xs font-medium w-12 text-center">{zoom}%</div>
-          <button className="px-2 py-1 bg-white border border-zinc-300 rounded text-xs hover:bg-zinc-50" onClick={handleZoomIn}>+</button>
-          <button className="px-2 py-1 bg-white border border-zinc-300 rounded text-xs hover:bg-zinc-50" onClick={handleResetZoom}>Réinitialiser</button>
+      <div className="w-full h-full bg-gradient-to-b from-slate-50 to-slate-100 text-slate-900 flex flex-col">
+        {/* Modern Toolbar */}
+        <div className="flex items-center justify-between px-4 py-3 bg-white border-b border-slate-200 shadow-sm">
+          <div className="flex items-center gap-1">
+            <button 
+              className="p-2 rounded-lg hover:bg-slate-100 transition-colors" 
+              onClick={handleZoomOut}
+              title="Réduire"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+              </svg>
+            </button>
+            <div className="text-sm font-semibold text-slate-700 w-14 text-center bg-slate-50 rounded px-2 py-1">{zoom}%</div>
+            <button 
+              className="p-2 rounded-lg hover:bg-slate-100 transition-colors" 
+              onClick={handleZoomIn}
+              title="Agrandir"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+            </button>
+            <button 
+              className="ml-2 px-3 py-1.5 text-sm rounded-lg bg-slate-100 hover:bg-slate-200 transition-colors font-medium" 
+              onClick={handleResetZoom}
+            >
+              Réinitialiser
+            </button>
+          </div>
           
-          <div className="ml-auto flex items-center gap-2">
-            <button className="px-2 py-1 bg-white border border-zinc-300 rounded text-xs hover:bg-zinc-50">⬅</button>
-            <div className="text-xs font-medium w-16 text-center">Page {page}</div>
-            <button className="px-2 py-1 bg-white border border-zinc-300 rounded text-xs hover:bg-zinc-50">➡</button>
+          <div className="flex items-center gap-2 text-sm text-slate-600 font-medium">
+            <span>Page {page}</span>
           </div>
         </div>
 
         {/* Content Area */}
-        <div className="flex-1 overflow-auto bg-zinc-300 p-4 flex items-start justify-center">
+        <div className="flex-1 overflow-auto bg-gradient-to-br from-slate-100 to-slate-200 p-4 flex items-start justify-center">
           <div
             style={{ transform: `scale(${zoom / 100})`, transformOrigin: 'top center' }}
-            className="bg-white p-6 shadow-lg transition-transform"
+            className="bg-white rounded-lg shadow-2xl transition-transform duration-200"
           >
-            <div className="w-[600px] min-h-[800px] bg-white">
-              <div className="text-sm leading-6 text-zinc-900 whitespace-pre-wrap break-words">
-                {snippet || '(Pas de contenu disponible)'}
+            <div className="w-[420px] bg-white shadow-inner flex flex-col" style={{ height: '594px' }}>
+              {/* Page Header Decoration */}
+              <div className="bg-gradient-to-r from-blue-500 to-blue-600 h-16 flex items-center px-6 flex-shrink-0">
+                <div className="text-white font-bold text-lg truncate">{fileName}</div>
+              </div>
+              
+              {/* Content - scrollable if needed */}
+              <div className="flex-1 overflow-y-auto px-6 py-4 text-sm text-slate-700">
+                <pre className="whitespace-pre-wrap break-words font-sans text-slate-700 text-xs leading-relaxed">{snippet || '(Pas de contenu disponible)'}</pre>
+              </div>
+              
+              {/* Footer */}
+              <div className="py-3 px-6 text-xs text-slate-500 flex justify-between flex-shrink-0 border-t border-slate-200 bg-slate-50">
+                <span className="truncate">{fileName}</span>
+                <span>Page {page}</span>
               </div>
             </div>
           </div>
