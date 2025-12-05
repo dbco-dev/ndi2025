@@ -1,0 +1,34 @@
+[
+  {
+    "expediteur": "Professeur",
+    "destinataire": "Marc",
+    "objet": "Réunion sur le numérique responsable",
+    "date_reception": "2025-10-12",
+    "heure_reception": "09:15",
+    "contenu": "Salut Marc,\nHier, la direction nous a parlé de l’impact des mails. Savais-tu qu’un email avec une pièce jointe de 1 Mo, c’est équivalent à une ampoule allumée 1 minute ?\nJe me demande si on ne devrait pas limiter la taille des PJ dans nos échanges…\nÀ demain,"
+  },
+  {
+    "expediteur": "Professeur",
+    "destinataire": "M. Dupont (intendant)",
+    "objet": "Ordinateurs en panne",
+    "date_reception": "2025-09-03",
+    "heure_reception": "16:40",
+    "contenu": "Bonjour M. Dupont,\nJ’ai 3 PCs en panne dans ma salle. Plutôt que de les jeter, ne pourrait-on pas les faire reconditionner ? J’ai lu que ça économisait jusqu’à 80% de CO2 ?\nMerci de me dire ce que tu en penses.\nCordialement,"
+  },
+  {
+    "expediteur": "Professeur",
+    "destinataire": "Thomas (ami)",
+    "objet": "J’ai installé Linux !",
+    "date_reception": "2025-07-20",
+    "heure_reception": "18:05",
+    "contenu": "Salut Thomas,\nJ’ai enfin osé installer Linux sur mon vieux PC. Résultat : il est devenu ultra-rapide ! Le plus drôle, c’est que j’ai choisi une distribution spécialement conçue pour l’éducation, elle s’appelle PrimTux ?\nJe te conseille vivement d’essayer !"
+  },
+  {
+    "expediteur": "Professeur",
+    "destinataire": "Liste des enseignants",
+    "objet": "Ressources libres",
+    "date_reception": "2025-11-05",
+    "heure_reception": "08:30",
+    "contenu": "Chers collègues,\nJ’ai découvert un site génial pour partager nos ressources pédagogiques libres : la Forge des communs numériques. Leur objectif principal, c’est Centraliser et partager des ressources numériques libres ?\nJe vous invite à y jeter un œil !"
+  }
+]
