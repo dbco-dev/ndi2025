@@ -9,9 +9,8 @@ interface Mail {
     expediteur: string;
     objet: string;
     contenu: string;
-    heureReception: string;
+    date: string;
     destinataire: string;
-    dateReception: string;
 }
 
 const [mails, setMails] = useState<Mail[]>([]);
@@ -43,8 +42,7 @@ useEffect(() => {
                         expediteur={mail.expediteur}
                         destinataire={mail.destinataire}
                         objet={mail.objet}
-                        dateReception={mail.dateReception}
-                        heureReception={mail.heureReception}
+                        date={mail.date}
                         contenu={mail.contenu}
                     />
                 ))
