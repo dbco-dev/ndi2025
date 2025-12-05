@@ -1,0 +1,164 @@
+{
+  "sections": [
+    { "id": 1, "name": "Sobriété numérique", "maxPoints": 50 },
+    { "id": 2, "name": "Reconditionnement", "maxPoints": 50 },
+    { "id": 3, "name": "Linux", "maxPoints": 50 },
+    { "id": 4, "name": "Forge des communs", "maxPoints": 50 },
+    { "id": 5, "name": "Transition écoresponsable", "maxPoints": 50 },
+    { "id": 6, "name": "Co-construction", "maxPoints": 50 }
+  ],
+  "badges": [
+    { "id": 1, "name": "Éco-conscient", "description": "Maîtrise de la sobriété numérique", "icon": "🌱" },
+    { "id": 2, "name": "Réparateur", "description": "Expert en reconditionnement", "icon": "🔧" },
+    { "id": 3, "name": "Linuxien", "description": "Promoteur de Linux", "icon": "🐧" },
+    { "id": 4, "name": "Partageur", "description": "Acteur de la Forge des communs", "icon": "🤝" },
+    { "id": 5, "name": "Éco-responsable", "description": "Champion de la transition numérique", "icon": "♻️" },
+    { "id": 6, "name": "Co-créateur", "description": "Maître de la co-construction", "icon": "👥" }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "section": 1,
+      "text": "Quel est l'impact environnemental moyen d'un email avec une pièce jointe de 1 Mo ?",
+      "options": {
+        "a": "Équivalent à une ampoule allumée 1 minute",
+        "b": "Équivalent à un trajet de 1 km en voiture",
+        "c": "Équivalent à la consommation d'un smartphone en veille pendant 24h",
+        "d": "Équivalent à la fabrication d'une clé USB"
+      },
+      "educationalText": "Un email avec une pièce jointe de 1 Mo équivaut à une ampoule allumée pendant 1 minute. C'est pourquoi il est important de limiter la taille des pièces jointes dans nos échanges. Source : ADEME"
+    },
+    {
+      "id": 2,
+      "section": 1,
+      "text": "Un data center consomme autant d'électricité que… ?",
+      "options": {
+        "a": "Une petite ville",
+        "b": "Un pays comme la Suisse",
+        "c": "Un réfrigérateur familial",
+        "d": "Un avion en vol"
+      },
+      "educationalText": "Un data center consomme autant d'électricité qu'une petite ville. Cette consommation massive d'énergie est un enjeu majeur du numérique responsable. Source : rapport GreenIT.fr 2024"
+    },
+    {
+      "id": 3,
+      "section": 2,
+      "text": "Jusqu'à combien de pourcentage de CO2 on économise avec le reconditionnement ?",
+      "options": {
+        "a": "10% de CO2",
+        "b": "30% de CO2",
+        "c": "50% de CO2",
+        "d": "80% de CO2"
+      },
+      "educationalText": "Le reconditionnement permet d'économiser jusqu'à 80% de CO2 par rapport à l'achat d'un équipement neuf. Plutôt que de jeter les ordinateurs en panne, il est préférable de les faire reconditionner, ce qui allonge leur durée de vie et réduit considérablement l'impact environnemental."
+    },
+    {
+      "id": 4,
+      "section": 2,
+      "text": "Pour un PC à 800€ quelle est le prix d'un équivalent reconditionné ?",
+      "options": {
+        "a": "750€",
+        "b": "620€",
+        "c": "430€",
+        "d": "510€"
+      },
+      "educationalText": "Pour un PC neuf à 800€, l'équivalent reconditionné coûte environ 430€, soit une économie de 370€ par PC. Le reconditionnement est donc non seulement écologique mais aussi économique, permettant de réaliser des économies significatives tout en réduisant l'impact environnemental."
+    },
+    {
+      "id": 5,
+      "section": 3,
+      "text": "Quelle distribution linux est spécialement conçue pour l'éducation ?",
+      "options": {
+        "a": "Ubuntu",
+        "b": "Debian Edu",
+        "c": "PrimTux",
+        "d": "Fedora"
+      },
+      "educationalText": "PrimTux est une distribution Linux spécialement conçue pour l'éducation. Installer Linux sur un vieux PC peut le rendre ultra-rapide et lui redonner une nouvelle vie, ce qui est une excellente solution contre l'obsolescence programmée."
+    },
+    {
+      "id": 6,
+      "section": 3,
+      "text": "Pourquoi Linux est-il une arme contre l'obsolescence programmée ?",
+      "options": {
+        "a": "Parce qu'il est toujours gratuit",
+        "b": "Parce qu'il fonctionne sur du matériel ancien",
+        "c": "Parce qu'il est toujours mis à jour",
+        "d": "Parce qu'il est open source et ne cache rien"
+      },
+      "educationalText": "Linux se distingue comme une solution efficace contre l'obsolescence programmée pour plusieurs raisons : il est toujours gratuit (pas d'achat de licence), il fonctionne sur du matériel ancien (distributions légères comme Lubuntu), il est toujours mis à jour par la communauté open source, et il est open source (transparence totale et possibilité d'adaptation). En résumé, Linux allonge la durée de vie du matériel, réduit les coûts et offre une transparence totale."
+    },
+    {
+      "id": 7,
+      "section": 4,
+      "text": "Quelle est l'objectif principal de la Forge des communs numériques ?",
+      "options": {
+        "a": "Vendre des logiciels libres aux écoles",
+        "b": "Centraliser et partager des ressources numériques libres",
+        "c": "Former les enseignants à la programmation",
+        "d": "Créer un réseau social pour les profs"
+      },
+      "educationalText": "La Forge des communs numériques a pour objectif principal de centraliser et partager des ressources numériques libres. C'est un site génial pour partager nos ressources pédagogiques libres entre enseignants, favorisant la mutualisation et le partage de connaissances."
+    },
+    {
+      "id": 8,
+      "section": 4,
+      "text": "Moodle est un : ?",
+      "options": {
+        "a": "Logiciel propriétaire",
+        "b": "Commun numérique éducatif",
+        "c": "Réseau social",
+        "d": "Outil payant"
+      },
+      "educationalText": "Moodle est un exemple de Commun numérique éducatif. Il peut être utilisé plutôt que Pronote pour les cours en ligne. Participer à la Forge des communs permet de mutualiser nos exercices et de favoriser le partage de ressources pédagogiques libres."
+    },
+    {
+      "id": 9,
+      "section": 5,
+      "text": "Quelle label récompense un engagement dans une démarche écoresponsable ?",
+      "options": {
+        "a": "Eco-Ecole",
+        "b": "E3D",
+        "c": "Green IT",
+        "d": "Numérique Responsable"
+      },
+      "educationalText": "Le label E3D (École ou Établissement en Démarche globale de Développement Durable) est une reconnaissance nationale attribuée par le ministère chargé de l'éducation nationale aux écoles, collèges, lycées, centres de formation d'apprentis et autres structures scolaires qui s'engagent dans une démarche globale de développement durable. Cette démarche vise à transformer l'établissement en un lieu d'apprentissage global du développement durable, en intégrant les principes du développement durable dans tous les aspects de la vie scolaire."
+    },
+    {
+      "id": 10,
+      "section": 5,
+      "text": "Quel est le premier levier à la sobriété numérique selon toi ?",
+      "options": {
+        "a": "Acheter du matériel neuf éco-labellisé",
+        "b": "Sensibiliser les usagers",
+        "c": "Virtualiser les serveurs",
+        "d": "Passer au tout-numérique"
+      },
+      "educationalText": "Le premier levier à la sobriété numérique est de sensibiliser les usagers. Les actions prioritaires incluent : sensibiliser les élèves à la sobriété numérique, éteindre les box internet le soir, et passer à Linux sur les vieux PCs. La sensibilisation est la base de tout changement de comportement."
+    },
+    {
+      "id": 11,
+      "section": 6,
+      "text": "Quel est l'avantage principal de co-construction d'un outil numérique pour la classe avec ses usagers (élèves, profs, etc.) ?",
+      "options": {
+        "a": "Réduire les coûts de licence",
+        "b": "Adapter les outils aux besoins spécifiques des usagers",
+        "c": "Éviter les mises à jour logicielles",
+        "d": "Supprimer le besoin de maintenance"
+      },
+      "educationalText": "La co-construction d'un outil numérique avec ses usagers (élèves, enseignants, personnel éducatif) représente une approche innovante et centrée sur l'humain. Contrairement à une solution imposée, cette méthode permet d'adapter les outils aux besoins spécifiques des usagers, garantissant ainsi une meilleure adéquation avec les pratiques pédagogiques et les attentes du terrain. En impliquant directement les acteurs concernés, on favorise l'appropriation de l'outil, son utilité et son efficacité au quotidien."
+    },
+    {
+      "id": 12,
+      "section": 6,
+      "text": "Quel est l'outil libre pour co-construire des ressources pédagogiques en ligne ?",
+      "options": {
+        "a": "Framapad",
+        "b": "Google Docs",
+        "c": "OneNote",
+        "d": "Evernote"
+      },
+      "educationalText": "Framapad est un outil libre permettant d'écrire à plusieurs en temps réel. D'autres outils libres utiles pour la co-construction incluent Nextcloud (pour partager des fichiers) et BigBlueButton (pour les visioconférences). Ces outils libres favorisent la collaboration tout en respectant la vie privée et les données des utilisateurs."
+    }
+  ]
+}

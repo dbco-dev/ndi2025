@@ -236,7 +236,7 @@ function Window({ uuid, title, children, initialPosition, initialSize, onClose, 
                 flex 
                 items-center justify-between
                 rounded-sm
-                overflow-hidden
+                overflow-scroll
                 ">
                     {children}
             </div>
