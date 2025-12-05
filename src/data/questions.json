@@ -1,11 +1,11 @@
 {
   "sections": [
-    { "id": 1, "name": "Sobriété numérique", "maxPoints": 50 },
-    { "id": 2, "name": "Reconditionnement", "maxPoints": 50 },
-    { "id": 3, "name": "Linux", "maxPoints": 50 },
-    { "id": 4, "name": "Forge des communs", "maxPoints": 50 },
-    { "id": 5, "name": "Transition écoresponsable", "maxPoints": 50 },
-    { "id": 6, "name": "Co-construction", "maxPoints": 50 }
+    { "id": 1, "name": "Sobriété numérique", "maxPoints": 100 },
+    { "id": 2, "name": "Reconditionnement", "maxPoints": 100 },
+    { "id": 3, "name": "Linux", "maxPoints": 100 },
+    { "id": 4, "name": "Forge des communs", "maxPoints": 100 },
+    { "id": 5, "name": "Transition écoresponsable", "maxPoints": 100 },
+    { "id": 6, "name": "Co-construction", "maxPoints": 100 }
   ],
   "badges": [
     { "id": 1, "name": "Éco-conscient", "description": "Maîtrise de la sobriété numérique", "icon": "🌱" },

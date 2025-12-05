@@ -1,13 +1,5 @@
-import { useState } from 'react'
 import Desktop from './components/blocks/desktop'
-import AppIcon from './components/blocks/appIcon'
 import TopBar from './components/blocks/topBar'
-import Window from './components/blocks/window'
-import WeirdTextField from './components/blocks/weirdTextField'
-import Mail from './components/layouts/mail'
-import Troll from './components/layouts/troll'
-import MainGame from './components/layouts/mainGame'
-import Snake from './components/layouts/snake'
 
 function App() {
   return (

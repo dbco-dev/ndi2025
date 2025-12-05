@@ -1,16 +1,25 @@
 import AppIcon from './appIcon'
-import { useState } from 'react'
-import MainGame from '../layouts/mainGame'
+import { useState, useEffect, useRef } from 'react'
+import NirdGame from '../layouts/nirdGame'
 import Mail from '../layouts/mail'
 import Troll from '../layouts/troll'
 import Snake from '../layouts/snake'
 import Window from './window'
 
+interface IconPosition {
+    x: number
+    y: number
+}
+
+const GRID_SIZE = 100
+const STORAGE_KEY = 'desktop_icon_positions'
 
 function Desktop() {
-
+    const desktopRef = useRef<HTMLDivElement>(null)
     const [openApps, setOpenApps] = useState<[uuid: number, title: string, x: number, y: number][]>([])
     const [blinkingWindows, setBlinkingWindows] = useState<Set<number>>(new Set())
+    const [activeIcon, setActiveIcon] = useState<string | null>(null)
+    const [iconPositions, setIconPositions] = useState<Record<string, IconPosition>>({})
   
     function timestamp() {
       return Date.now();
@@ -79,16 +88,136 @@ function Desktop() {
         })
       }
     
+    // Charger les positions depuis localStorage au montage
+    useEffect(() => {
+        const saved = localStorage.getItem(STORAGE_KEY)
+        if (saved) {
+            try {
+                const parsed = JSON.parse(saved)
+                // Vérifier que toutes les icônes ont des positions valides
+                const allIcons = ['NirdGame', 'Mail', 'Troll', 'Snake']
+                const hasAllIcons = allIcons.every(icon => parsed[icon] && typeof parsed[icon].x === 'number' && typeof parsed[icon].y === 'number')
+                
+                if (hasAllIcons) {
+                    setIconPositions(parsed)
+                } else {
+                    // Si certaines icônes manquent, initialiser avec les positions par défaut
+                    initializeDefaultPositions()
+                }
+            } catch (e) {
+                console.error('Erreur lors du chargement des positions:', e)
+                initializeDefaultPositions()
+            }
+        } else {
+            // Attendre que le DOM soit prêt avant de calculer les positions par défaut
+            const timer = setTimeout(() => {
+                initializeDefaultPositions()
+            }, 100)
+            return () => clearTimeout(timer)
+        }
+    }, [])
+
+    const initializeDefaultPositions = () => {
+        if (desktopRef.current) {
+            const desktopRect = desktopRef.current.getBoundingClientRect()
+            const centerX = desktopRect.width / 2
+            const centerY = desktopRect.height / 2
+            const iconSize = 96 // w-24 = 96px
+            
+            const defaultPositions: Record<string, IconPosition> = {
+                NirdGame: {
+                    x: Math.round((centerX - iconSize * 1.5) / GRID_SIZE) * GRID_SIZE,
+                    y: Math.round((centerY - iconSize / 2) / GRID_SIZE) * GRID_SIZE,
+                },
+                Mail: {
+                    x: Math.round((centerX - iconSize / 2) / GRID_SIZE) * GRID_SIZE,
+                    y: Math.round((centerY - iconSize / 2) / GRID_SIZE) * GRID_SIZE,
+                },
+                Troll: {
+                    x: Math.round((centerX + iconSize * 0.5) / GRID_SIZE) * GRID_SIZE,
+                    y: Math.round((centerY - iconSize / 2) / GRID_SIZE) * GRID_SIZE,
+                },
+                Snake: {
+                    x: Math.round((centerX - iconSize / 2) / GRID_SIZE) * GRID_SIZE,
+                    y: Math.round((centerY + iconSize * 0.5) / GRID_SIZE) * GRID_SIZE,
+                },
+            }
+            setIconPositions(defaultPositions)
+        }
+    }
+
+    // Sauvegarder les positions dans localStorage quand elles changent
+    useEffect(() => {
+        if (Object.keys(iconPositions).length > 0) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(iconPositions))
+        }
+    }, [iconPositions])
+
+    const handleIconPositionChange = (appName: string, position: IconPosition) => {
+        setIconPositions(prev => ({
+            ...prev,
+            [appName]: position
+        }))
+    }
+
+    const getIconPosition = (appName: string): IconPosition => {
+        return iconPositions[appName] || { x: 0, y: 0 }
+    }
+
+    const handleDesktopClick = () => {
+        setActiveIcon(null)
+    }
+    
     return (
-        <div className="absolute w-full bottom-0 top-6 left-0">
-            <AppIcon onOpenApp={handleOpenApp} appName="MainGame" />
-            <AppIcon onOpenApp={handleOpenApp} appName="Mail" />
-            <AppIcon onOpenApp={handleOpenApp} appName="Troll" />
-            <AppIcon onOpenApp={handleOpenApp} appName="Snake" />
+        <div 
+            ref={desktopRef}
+            data-desktop
+            className="absolute w-full bottom-0 top-6 left-0" 
+            onClick={handleDesktopClick}>
+            <AppIcon 
+                onOpenApp={handleOpenApp} 
+                appName="NirdGame" 
+                label="NirdGame.fun" 
+                isActive={activeIcon === "NirdGame"} 
+                onActivate={() => setActiveIcon("NirdGame")}
+                position={getIconPosition("NirdGame")}
+                onPositionChange={handleIconPositionChange}
+                gridSize={GRID_SIZE}
+            />
+            <AppIcon 
+                onOpenApp={handleOpenApp} 
+                appName="Mail" 
+                label="Mail.app" 
+                isActive={activeIcon === "Mail"} 
+                onActivate={() => setActiveIcon("Mail")}
+                position={getIconPosition("Mail")}
+                onPositionChange={handleIconPositionChange}
+                gridSize={GRID_SIZE}
+            />
+            <AppIcon 
+                onOpenApp={handleOpenApp} 
+                appName="Troll" 
+                label="OneTube.app" 
+                isActive={activeIcon === "Troll"} 
+                onActivate={() => setActiveIcon("Troll")}
+                position={getIconPosition("Troll")}
+                onPositionChange={handleIconPositionChange}
+                gridSize={GRID_SIZE}
+            />
+            <AppIcon 
+                onOpenApp={handleOpenApp} 
+                appName="Snake" 
+                label="SteveJobs.app" 
+                isActive={activeIcon === "Snake"} 
+                onActivate={() => setActiveIcon("Snake")}
+                position={getIconPosition("Snake")}
+                onPositionChange={handleIconPositionChange}
+                gridSize={GRID_SIZE}
+            />
 
       {openApps.map((app) => (
-        app[1] === "MainGame" 
-        ? <MainGame key={app[0]} uuid={app[0]} title={app[1]} initialPosition={{ x: app[2], y: app[3] }} initialSize={{ width: 300, height: 200 }} onClose={() => handleCloseWindow(app[0])} onClick={(position) => handleWindowClick(app[0], position)} shouldBlink={blinkingWindows.has(app[0])} /> 
+        app[1] === "NirdGame" 
+        ? <NirdGame key={app[0]} uuid={app[0]} title={app[1]} initialPosition={{ x: app[2], y: app[3] }} initialSize={{ width: 300, height: 200 }} onClose={() => handleCloseWindow(app[0])} onClick={(position) => handleWindowClick(app[0], position)} shouldBlink={blinkingWindows.has(app[0])} /> 
         : app[1] === "Troll" 
         ? <Troll key={app[0]} uuid={app[0]} title={app[1]} initialPosition={{ x: app[2], y: app[3] }} initialSize={{ width: 300, height: 200 }} onClose={() => handleCloseWindow(app[0])} onClick={(position) => handleWindowClick(app[0], position)} shouldBlink={blinkingWindows.has(app[0])} /> 
         : app[1] === "Mail" 

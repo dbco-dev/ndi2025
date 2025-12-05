@@ -4,7 +4,7 @@ function Troll({ uuid, title, initialPosition, initialSize, onClose, onClick, sh
     return (
         <Window title={title} initialPosition={initialPosition} initialSize={{ width: 600, height: 350 }} onClose={onClose} onClick={onClick} shouldBlink={shouldBlink}>
             <div className="w-full h-full bg-black"> 
-                <video src="/assets/troll.mp4" autoPlay loop className="w-full h-full object-cover" />
+                <video src="/assets/medias/troll.mp4" autoPlay loop className="w-full h-full object-cover" />
             </div>
         </Window>
     )
