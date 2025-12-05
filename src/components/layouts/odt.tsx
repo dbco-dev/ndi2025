@@ -23,20 +23,14 @@ function exec(command: string, value?: string) {
 
 function Odt({ uuid, fileName, snippet, initialPosition, initialSize, onClose, onClick, shouldBlink }: OdtProps) {
   const editorRef = useRef<HTMLDivElement | null>(null)
-  const [html, setHtml] = useState('')
   const [showFontMenu, setShowFontMenu] = useState(false)
   const [showSizeMenu, setShowSizeMenu] = useState(false)
 
   useEffect(() => {
     if (editorRef.current) {
       editorRef.current.innerText = snippet || ''
-      setHtml(editorRef.current.innerHTML)
     }
   }, [snippet])
-
-  const handleInput = () => {
-    if (editorRef.current) setHtml(editorRef.current.innerHTML)
-  }
 
   const fonts = ['Arial', 'Georgia', 'Courier New', 'Verdana', 'Times New Roman']
   const sizes = ['8', '10', '12', '14', '16', '18', '20', '24', '28', '32']
@@ -216,7 +210,6 @@ function Odt({ uuid, fileName, snippet, initialPosition, initialSize, onClose, o
         <div
           ref={editorRef}
           contentEditable
-          onInput={handleInput}
           className="flex-1 overflow-auto p-6 outline-none text-slate-900 leading-relaxed"
           suppressContentEditableWarning
           style={{ 

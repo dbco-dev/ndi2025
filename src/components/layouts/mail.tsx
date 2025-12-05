@@ -111,20 +111,20 @@ useEffect(() => {
     return (
         <Window uuid={uuid} title={title} initialPosition={initialPosition} initialSize={{width:1250, height:700}} onClose={onClose} onClick={onClick} shouldBlink={shouldBlink}>
 
-            <div className="h-full flex flex-col gap-3">
-                {/* Top visual action bar (responsive: boîte à gauche, barre centrée, boutons à droite; on petit écran boutons en dessous) */}
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 bg-white/40 rounded-md ">
+            <div className="w-full h-full flex flex-col gap-3 p-3 bg-slate-50">
+                {/* Top action bar */}
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-3 bg-white rounded-md shadow-sm">
                     <div className="text-sm font-semibold text-left">Boîte mail</div>
 
-                    {/* Centred search bar: becomes the middle flex item and is centered */}
-                    <div className="flex-1 flex justify-center mt-2 sm:mt-0">
-                        <div className="w-full sm:max-w-md">
+                    {/* Search bar */}
+                    <div className="flex-1 flex justify-center mt-2 sm:mt-0 px-4">
+                        <div className="w-full">
                             <input
                                 type="text"
                                 value={query}
                                 onChange={(e) => setQuery(e.target.value)}
                                 placeholder="Rechercher par expéditeur, objet ou contenu..."
-                                className="w-full px-3 py-1 rounded-md border border-gray-200 bg-white text-sm placeholder-gray-400 mx-auto"
+                                className="w-full px-3 py-2 rounded-md border border-slate-300 bg-white text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
                     </div>
@@ -133,111 +133,123 @@ useEffect(() => {
                         <button
                             title="Nouveau mail"
                             onClick={() => { setShowContacts(false); setShowCompose(true); openCompose(); }}
-                            className="px-3 py-1 bg-blue-600 text-white rounded-md text-sm"
+                            className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 transition-colors"
                         >
                             Nouveau mail
                         </button>
                         <button
                             title="Contact"
                             onClick={() => { setShowContacts(prev => !prev); setShowCompose(false); }}
-                            className="px-3 py-1 bg-gray-100 text-gray-800 rounded-md text-sm"
+                            className="px-4 py-2 bg-slate-200 text-slate-800 rounded-md text-sm font-medium hover:bg-slate-300 transition-colors"
                         >
                             Contact
                         </button>
                     </div>
                 </div>
 
-                <div className="flex-1 flex h-full gap-4 p-4">
-                {/* Sidebar */}
-                <aside className="w-48 bg-white/50 p-2 rounded-lg border border-gray-200 shadow-sm">
-                    <h3 className="text-sm font-semibold mb-2">Dossiers</h3>
-                    <ul className="space-y-1 text-sm">
-                        <li
-                            className={`px-2 py-1 rounded cursor-pointer ${activeFolder === 'inbox' ? 'bg-gray-100 font-semibold' : 'hover:bg-gray-100'}`}
-                            onClick={() => { setActiveFolder('inbox'); const first = inboxMails[0]; setSelectedMail(first || null); }}
-                        >
-                            Boîte de réception <span className="text-xs text-gray-500 ml-2">({inboxMails.length})</span>
-                        </li>
-                        <li
-                            className={`px-2 py-1 rounded cursor-pointer ${activeFolder === 'sent' ? 'bg-gray-100 font-semibold' : 'hover:bg-gray-100'}`}
-                            onClick={() => { setActiveFolder('sent'); const first = sentMails[0]; setSelectedMail(first || null); }}
-                        >
-                            Envoyés <span className="text-xs text-gray-500 ml-2">({sentMails.length})</span>
-                        </li>
-                        <li className="px-2 py-1 rounded hover:bg-gray-100 cursor-pointer">Brouillons</li>
-                        <li className="px-2 py-1 rounded hover:bg-gray-100 cursor-pointer">Corbeille</li>
-                    </ul>
-                </aside>
+                {/* Main content area - flexible layout */}
+                <div className="flex-1 flex gap-3 min-h-0">
+                    {/* Sidebar */}
+                    <aside className="w-40 bg-white p-3 rounded-lg border border-slate-200 shadow-sm overflow-auto">
+                        <h3 className="text-sm font-semibold mb-3 text-slate-900">Dossiers</h3>
+                        <ul className="space-y-1 text-sm">
+                            <li
+                                className={`px-3 py-2 rounded cursor-pointer transition-colors ${activeFolder === 'inbox' ? 'bg-blue-100 text-blue-900 font-semibold' : 'text-slate-700 hover:bg-slate-100'}`}
+                                onClick={() => { setActiveFolder('inbox'); const first = inboxMails[0]; setSelectedMail(first || null); }}
+                            >
+                                Boîte de réception <span className="text-xs text-slate-500 ml-1">({inboxMails.length})</span>
+                            </li>
+                            <li
+                                className={`px-3 py-2 rounded cursor-pointer transition-colors ${activeFolder === 'sent' ? 'bg-blue-100 text-blue-900 font-semibold' : 'text-slate-700 hover:bg-slate-100'}`}
+                                onClick={() => { setActiveFolder('sent'); const first = sentMails[0]; setSelectedMail(first || null); }}
+                            >
+                                Envoyés <span className="text-xs text-slate-500 ml-1">({sentMails.length})</span>
+                            </li>
+                            <li className="px-3 py-2 rounded text-slate-700 hover:bg-slate-100 cursor-pointer transition-colors">Brouillons</li>
+                            <li className="px-3 py-2 rounded text-slate-700 hover:bg-slate-100 cursor-pointer transition-colors">Corbeille</li>
+                        </ul>
+                    </aside>
 
-                {/* Mail list */}
-                <section className="flex-1 max-w-xl bg-white/50 p-2 rounded-lg border border-gray-200 overflow-auto">
-                    <div className="mb-2 flex items-center justify-between">
-                        <h2 className="text-lg font-semibold">Messages</h2>
-                        <div className="text-sm text-gray-500">{filteredMails.length} messages</div>
-                    </div>
-                    <div className="space-y-2">
-                        {filteredMails.map((mail, index) => (
-                            <Mailline
-                                key={index}
-                                expediteur={mail.expediteur}
-                                objet={mail.objet}
-                                date={mail.date}
-                                contenu={mail.contenu}
-                                isSelected={selectedMail === mail}
-                                onClick={() => setSelectedMail(mail)}
-                            />
-                        ))}
-                    </div>
-                </section>
-
-                {/* Preview pane */}
-                <aside className="w-96 bg-white/50 p-4 rounded-lg border border-gray-200 overflow-visible flex flex-col h-full">
-                    <h3 className="text-lg font-semibold mb-2">Aperçu</h3>
-                    {showCompose ? (
-                        <div className="flex flex-col h-full">
-                            <h3 className="text-lg font-semibold mb-2">Nouveau message</h3>
-                            <div className="flex-1 flex flex-col gap-2">
-                                <input className="border px-2 py-1 rounded text-sm" placeholder="Destinataire" value={composeDraft.destinataire || ''} onChange={(e) => setComposeDraft(d => ({ ...d, destinataire: e.target.value }))} />
-                                <input className="border px-2 py-1 rounded text-sm" placeholder="Objet" value={composeDraft.objet || ''} onChange={(e) => setComposeDraft(d => ({ ...d, objet: e.target.value }))} />
-                                <textarea className="border px-2 py-1 rounded text-sm h-40" placeholder="Contenu" value={composeDraft.contenu || ''} onChange={(e) => setComposeDraft(d => ({ ...d, contenu: e.target.value }))} />
-                            </div>
-                            <div className="mt-1 flex gap-1">
-                                <button onClick={sendCompose} className="px-3 py-1 bg-blue-600 text-white rounded-md text-sm">Envoyer</button>
-                                <button onClick={() => setShowCompose(false)} className="px-3 py-1 bg-gray-200 text-gray-800 rounded-md text-sm">Annuler</button>
-                            </div>
+                    {/* Mail list */}
+                    <section className="flex-1 min-w-0 bg-white p-3 rounded-lg border border-slate-200 shadow-sm overflow-auto">
+                        <div className="mb-3 flex items-center justify-between sticky top-0 bg-white pb-2 border-b border-slate-100">
+                            <h2 className="text-base font-semibold text-slate-900">Messages</h2>
+                            <div className="text-sm text-slate-500">{filteredMails.length}</div>
                         </div>
-                    ) : showContacts ? (
-                        <div>
-                            <h3 className="text-lg font-semibold mb-2">Contacts</h3>
-                            <div className="flex flex-col gap-2">
-                                {contacts.length === 0 && <div className="text-sm text-gray-500">Aucun contact.</div>}
-                                {contacts.map((c, i) => (
-                                    <div key={i} className="flex items-center justify-between p-2 border rounded hover:bg-gray-50">
-                                        <div className="text-sm">{c}</div>
-                                        <div className="flex gap-2">
-                                            <button onClick={() => { openCompose({ destinataire: c }); }} className="px-2 py-1 text-sm bg-blue-600 text-white rounded">Écrire</button>
-                                        </div>
+                        <div className="space-y-1">
+                            {filteredMails.map((mail, index) => (
+                                <Mailline
+                                    key={index}
+                                    expediteur={mail.expediteur}
+                                    objet={mail.objet}
+                                    date={mail.date}
+                                    contenu={mail.contenu}
+                                    isSelected={selectedMail === mail}
+                                    onClick={() => setSelectedMail(mail)}
+                                />
+                            ))}
+                        </div>
+                    </section>
+
+                    {/* Preview pane */}
+                    <aside className="flex-1 min-w-0 bg-white p-4 rounded-lg border border-slate-200 shadow-sm overflow-auto">
+                        <h3 className="text-base font-semibold mb-3 text-slate-900 sticky top-0 bg-white pb-2 border-b border-slate-100">Aperçu</h3>
+                        <div className="space-y-4">
+                            {showCompose ? (
+                                <div className="flex flex-col gap-3">
+                                    <h4 className="text-sm font-semibold text-slate-900">Nouveau message</h4>
+                                    <input 
+                                        className="border border-slate-300 px-3 py-2 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                                        placeholder="Destinataire" 
+                                        value={composeDraft.destinataire || ''} 
+                                        onChange={(e) => setComposeDraft(d => ({ ...d, destinataire: e.target.value }))} 
+                                    />
+                                    <input 
+                                        className="border border-slate-300 px-3 py-2 rounded text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                                        placeholder="Objet" 
+                                        value={composeDraft.objet || ''} 
+                                        onChange={(e) => setComposeDraft(d => ({ ...d, objet: e.target.value }))} 
+                                    />
+                                    <textarea 
+                                        className="border border-slate-300 px-3 py-2 rounded text-sm flex-1 min-h-32 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none" 
+                                        placeholder="Contenu" 
+                                        value={composeDraft.contenu || ''} 
+                                        onChange={(e) => setComposeDraft(d => ({ ...d, contenu: e.target.value }))} 
+                                    />
+                                    <div className="flex gap-2">
+                                        <button onClick={sendCompose} className="px-3 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 transition-colors">Envoyer</button>
+                                        <button onClick={() => setShowCompose(false)} className="px-3 py-2 bg-slate-200 text-slate-800 rounded-md text-sm font-medium hover:bg-slate-300 transition-colors">Annuler</button>
                                     </div>
-                                ))}
-                            </div>
+                                </div>
+                            ) : showContacts ? (
+                                <div>
+                                    <h4 className="text-sm font-semibold mb-3 text-slate-900">Contacts</h4>
+                                    <div className="flex flex-col gap-2">
+                                        {contacts.length === 0 && <div className="text-sm text-slate-500">Aucun contact.</div>}
+                                        {contacts.map((c, i) => (
+                                            <div key={i} className="flex items-center justify-between p-2 border border-slate-200 rounded hover:bg-slate-50 transition-colors">
+                                                <div className="text-sm text-slate-900">{c}</div>
+                                                <button onClick={() => { openCompose({ destinataire: c }); }} className="px-2 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">Écrire</button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            ) : selectedMail ? (
+                                <div className="space-y-3">
+                                    <div className="pb-3 border-b border-slate-200">
+                                        <div className="text-sm text-slate-600 mb-1">De : <span className="font-medium text-slate-900">{selectedMail.expediteur}</span></div>
+                                        <div className="text-sm text-slate-600 mb-1">À : <span className="font-medium text-slate-900">{selectedMail.destinataire}</span></div>
+                                        <div className="text-sm text-slate-600">Date : <span className="font-medium text-slate-900">{formatDisplayDate(selectedMail.date)}</span></div>
+                                    </div>
+                                    <h4 className="text-base font-semibold text-slate-900">{selectedMail.objet}</h4>
+                                    <div className="whitespace-pre-wrap text-sm text-slate-700 leading-relaxed">{selectedMail.contenu}</div>
+                                </div>
+                            ) : (
+                                <div className="text-sm text-slate-500 text-center py-8">Aucun message sélectionné.</div>
+                            )}
                         </div>
-                    ) : selectedMail ? (
-                        <div>
-                            <div className="mb-3">
-                                <div className="text-sm text-gray-600">De : <span className="font-medium">{selectedMail.expediteur}</span></div>
-                                <div className="text-sm text-gray-600">À : <span className="font-medium">{selectedMail.destinataire}</span></div>
-                                <div className="text-sm text-gray-600">Date : <span className="font-medium">{formatDisplayDate(selectedMail.date)}</span></div>
-                            </div>
-                            <h4 className="text-md font-semibold mb-2">{selectedMail.objet}</h4>
-                            <div className="whitespace-pre-wrap text-sm text-gray-800">{selectedMail.contenu}</div>
-                        </div>
-                    ) : (
-                        <div className="text-sm text-gray-500">Aucun message sélectionné.</div>
-                    )}
-                </aside>
-
+                    </aside>
                 </div>
-
             </div>
         </Window>
     )
