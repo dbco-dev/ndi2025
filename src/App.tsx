@@ -4,6 +4,7 @@ import AppIcon from './components/blocks/appIcon'
 import TopBar from './components/blocks/topBar'
 import Window from './components/blocks/window'
 import WeirdTextField from './components/blocks/weirdTextField'
+import MainGame from './components/layouts/mainGame'
 
 function App() {
   const [openApps, setOpenApps] = useState<[uuid: number, title: string, x: number, y: number][]>([[1, "Notepad", 200, 200], [2, "Calculator", 300, 300], [3, "Paint", 400, 400]])
@@ -52,6 +53,7 @@ function App() {
         </Window>
       ))}
       <WeirdTextField />
+      <MainGame />
     </div>
   )
 }
