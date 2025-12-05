@@ -6,7 +6,7 @@ function Window({ uuid, title, children, initialPosition, initialSize, onClose, 
     const [size, setSize] = useState(initialSize || { width: 500, height: 300 });
     const [isDragging, setIsDragging] = useState(false);
     const [isResizing, setIsResizing] = useState(false);
-    const [resizeEdge, setResizeEdge] = useState<'left' | 'right' | 'bottom' | null>(null);
+    const [resizeEdge, setResizeEdge] = useState<'left' | 'right' | 'bottom' | 'bottom-left' | 'bottom-right' | null>(null);
     const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
     const [resizeStart, setResizeStart] = useState({ x: 0, y: 0, width: 0, height: 0, left: 0 });
     const [isFullscreen, setIsFullscreen] = useState(false);
@@ -98,10 +98,50 @@ function Window({ uuid, title, children, initialPosition, initialSize, onClose, 
                         // Limiter à la bordure basse du parent
                         const maxHeight = parentRect.height - position.y;
                         newHeight = Math.max(MIN_HEIGHT, Math.min(newHeightValue, maxHeight));
+                    } else if (resizeEdge === 'bottom-left') {
+                        // Redimensionnement depuis l'angle inférieur gauche
+                        const deltaX = resizeStart.x - e.clientX;
+                        const deltaY = e.clientY - resizeStart.y;
+                        
+                        // Calculer la nouvelle largeur et position X
+                        const newWidthValue = resizeStart.width + deltaX;
+                        const newLeft = resizeStart.left - deltaX;
+                        const minLeft = parentRect.left;
+                        const maxLeft = resizeStart.left + resizeStart.width - MIN_WIDTH;
+                        
+                        if (newLeft >= minLeft && newLeft <= maxLeft) {
+                            newX = newLeft - parentRect.left;
+                            newWidth = newWidthValue;
+                        } else if (newLeft < minLeft) {
+                            newX = 0;
+                            newWidth = resizeStart.width + (resizeStart.left - minLeft);
+                        } else {
+                            newX = maxLeft - parentRect.left;
+                            newWidth = MIN_WIDTH;
+                        }
+                        
+                        // Calculer la nouvelle hauteur
+                        const newHeightValue = resizeStart.height + deltaY;
+                        const maxHeight = parentRect.height - position.y;
+                        newHeight = Math.max(MIN_HEIGHT, Math.min(newHeightValue, maxHeight));
+                    } else if (resizeEdge === 'bottom-right') {
+                        // Redimensionnement depuis l'angle inférieur droit
+                        const deltaX = e.clientX - resizeStart.x;
+                        const deltaY = e.clientY - resizeStart.y;
+                        
+                        // Calculer la nouvelle largeur
+                        const newWidthValue = resizeStart.width + deltaX;
+                        const maxWidth = parentRect.width - position.x;
+                        newWidth = Math.max(MIN_WIDTH, Math.min(newWidthValue, maxWidth));
+                        
+                        // Calculer la nouvelle hauteur
+                        const newHeightValue = resizeStart.height + deltaY;
+                        const maxHeight = parentRect.height - position.y;
+                        newHeight = Math.max(MIN_HEIGHT, Math.min(newHeightValue, maxHeight));
                     }
                     
                     setSize({ width: newWidth, height: newHeight });
-                    if (resizeEdge === 'left') {
+                    if (resizeEdge === 'left' || resizeEdge === 'bottom-left') {
                         setPosition({ ...position, x: newX });
                     }
                 }
@@ -141,7 +181,7 @@ function Window({ uuid, title, children, initialPosition, initialSize, onClose, 
         }
     };
 
-    const handleResizeMouseDown = (e: React.MouseEvent, edge: 'left' | 'right' | 'bottom') => {
+    const handleResizeMouseDown = (e: React.MouseEvent, edge: 'left' | 'right' | 'bottom' | 'bottom-left' | 'bottom-right') => {
         e.stopPropagation();
         if (isFullscreen) return; // Désactiver le redimensionnement en mode plein écran
         if (windowRef.current) {
@@ -160,11 +200,18 @@ function Window({ uuid, title, children, initialPosition, initialSize, onClose, 
         }
     };
 
-    const getResizeCursor = (edge: 'left' | 'right' | 'bottom') => {
+    const getResizeCursor = (edge: 'left' | 'right' | 'bottom' | 'bottom-left' | 'bottom-right') => {
         if (isResizing && resizeEdge === edge) {
-            return edge === 'bottom' ? 'ns-resize' : 'ew-resize';
+            if (edge === 'bottom') return 'ns-resize';
+            if (edge === 'left' || edge === 'right') return 'ew-resize';
+            if (edge === 'bottom-left') return 'nesw-resize';
+            if (edge === 'bottom-right') return 'nwse-resize';
         }
-        return edge === 'bottom' ? 'ns-resize' : 'ew-resize';
+        if (edge === 'bottom') return 'ns-resize';
+        if (edge === 'left' || edge === 'right') return 'ew-resize';
+        if (edge === 'bottom-left') return 'nesw-resize';
+        if (edge === 'bottom-right') return 'nwse-resize';
+        return 'default';
     };
 
     const handleCloseWindow = () => {
@@ -195,7 +242,7 @@ function Window({ uuid, title, children, initialPosition, initialSize, onClose, 
                 
                 if (parentElement) {
                     const parentRect = parentElement.getBoundingClientRect();
-                    const TOP_BAR_HEIGHT = 24; // h-6 = 24px
+                    const TOP_BAR_HEIGHT = 0; // h-6 = 24px
                     // Mettre la fenêtre en plein écran (pleine largeur et pleine hauteur)
                     // Laisser un espace en haut pour la top bar (24px)
                     setPosition({ x: 0, y: TOP_BAR_HEIGHT });
@@ -274,6 +321,32 @@ function Window({ uuid, title, children, initialPosition, initialSize, onClose, 
                     }}
                     onClick={(e) => e.stopPropagation()}
                     style={{ cursor: getResizeCursor('bottom') }}
+                />
+            )}
+            
+            {/* Angle inférieur gauche */}
+            {!isFullscreen && (
+                <div
+                    className="absolute bottom-0 left-0 w-3 h-3 cursor-nesw-resize hover:bg-zinc-600/50"
+                    onMouseDown={(e) => {
+                        e.stopPropagation()
+                        handleResizeMouseDown(e, 'bottom-left')
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                    style={{ cursor: getResizeCursor('bottom-left') }}
+                />
+            )}
+            
+            {/* Angle inférieur droit */}
+            {!isFullscreen && (
+                <div
+                    className="absolute bottom-0 right-0 w-3 h-3 cursor-nwse-resize hover:bg-zinc-600/50"
+                    onMouseDown={(e) => {
+                        e.stopPropagation()
+                        handleResizeMouseDown(e, 'bottom-right')
+                    }}
+                    onClick={(e) => e.stopPropagation()}
+                    style={{ cursor: getResizeCursor('bottom-right') }}
                 />
             )}
 

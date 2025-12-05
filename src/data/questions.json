@@ -41,6 +41,30 @@
       "educationalText": "Un data center consomme autant d'électricité qu'une petite ville. Cette consommation massive d'énergie est un enjeu majeur du numérique responsable. Source : rapport GreenIT.fr 2024"
     },
     {
+      "id": 13,
+      "section": 1,
+      "text": "Combien de temps faut-il pour qu'un smartphone consomme autant d'énergie que sa fabrication ?",
+      "options": {
+        "a": "1 an",
+        "b": "2 ans",
+        "c": "5 ans",
+        "d": "10 ans"
+      },
+      "educationalText": "Il faut environ 2 ans d'utilisation pour qu'un smartphone consomme autant d'énergie que sa fabrication. C'est pourquoi il est essentiel de garder nos appareils le plus longtemps possible et d'éviter le renouvellement trop fréquent. Source : ADEME"
+    },
+    {
+      "id": 14,
+      "section": 1,
+      "text": "Quelle est la meilleure pratique pour réduire l'impact du streaming vidéo ?",
+      "options": {
+        "a": "Regarder en 4K sur grand écran",
+        "b": "Télécharger plutôt que streamer",
+        "c": "Augmenter la qualité vidéo",
+        "d": "Regarder plusieurs vidéos en même temps"
+      },
+      "educationalText": "Télécharger plutôt que streamer permet de réduire l'impact environnemental. Le streaming nécessite une connexion constante et consomme beaucoup d'énergie. Télécharger une fois et regarder plusieurs fois est plus écologique. Source : GreenIT.fr"
+    },
+    {
       "id": 3,
       "section": 2,
       "text": "Jusqu'à combien de pourcentage de CO2 on économise avec le reconditionnement ?",
@@ -63,6 +87,30 @@
         "d": "510€"
       },
       "educationalText": "Pour un PC neuf à 800€, l'équivalent reconditionné coûte environ 430€, soit une économie de 370€ par PC. Le reconditionnement est donc non seulement écologique mais aussi économique, permettant de réaliser des économies significatives tout en réduisant l'impact environnemental."
+    },
+    {
+      "id": 15,
+      "section": 2,
+      "text": "Quelle est la durée de vie moyenne d'un ordinateur reconditionné ?",
+      "options": {
+        "a": "1 an",
+        "b": "2-3 ans",
+        "c": "4-5 ans",
+        "d": "6 mois"
+      },
+      "educationalText": "Un ordinateur reconditionné peut avoir une durée de vie de 4-5 ans, voire plus avec un bon entretien. Le reconditionnement permet de prolonger significativement la vie des équipements, réduisant ainsi les déchets électroniques et l'impact environnemental."
+    },
+    {
+      "id": 16,
+      "section": 2,
+      "text": "Quel est l'avantage écologique principal du reconditionnement par rapport au recyclage ?",
+      "options": {
+        "a": "Le reconditionnement coûte moins cher",
+        "b": "Le reconditionnement évite la destruction de l'appareil",
+        "c": "Le reconditionnement est plus rapide",
+        "d": "Le reconditionnement nécessite moins d'énergie"
+      },
+      "educationalText": "Le reconditionnement évite la destruction de l'appareil, contrairement au recyclage qui nécessite de démonter et détruire les composants. En réutilisant l'appareil tel quel après réparation, on préserve l'énergie grise (énergie nécessaire à la fabrication) déjà investie dans le produit."
     },
     {
       "id": 5,
@@ -89,6 +137,30 @@
       "educationalText": "Linux se distingue comme une solution efficace contre l'obsolescence programmée pour plusieurs raisons : il est toujours gratuit (pas d'achat de licence), il fonctionne sur du matériel ancien (distributions légères comme Lubuntu), il est toujours mis à jour par la communauté open source, et il est open source (transparence totale et possibilité d'adaptation). En résumé, Linux allonge la durée de vie du matériel, réduit les coûts et offre une transparence totale."
     },
     {
+      "id": 17,
+      "section": 3,
+      "text": "Quelle distribution Linux est recommandée pour redonner vie à un vieux PC ?",
+      "options": {
+        "a": "Ubuntu",
+        "b": "Lubuntu",
+        "c": "Fedora",
+        "d": "Arch Linux"
+      },
+      "educationalText": "Lubuntu est une distribution Linux légère spécialement conçue pour les ordinateurs anciens ou peu puissants. Basée sur Ubuntu, elle nécessite peu de ressources et permet de faire fonctionner des PC vieux de 10 ans ou plus avec des performances correctes."
+    },
+    {
+      "id": 18,
+      "section": 3,
+      "text": "Quel est l'avantage économique de Linux pour une école ?",
+      "options": {
+        "a": "Pas de coût de licence par poste",
+        "b": "Support technique gratuit",
+        "c": "Formation incluse",
+        "d": "Matériel fourni"
+      },
+      "educationalText": "Linux est gratuit et open source, ce qui signifie qu'il n'y a pas de coût de licence par poste. Pour une école avec de nombreux ordinateurs, cela représente des économies considérables par rapport aux systèmes propriétaires, tout en offrant une alternative performante et sécurisée."
+    },
+    {
       "id": 7,
       "section": 4,
       "text": "Quelle est l'objectif principal de la Forge des communs numériques ?",
@@ -111,6 +183,30 @@
         "d": "Outil payant"
       },
       "educationalText": "Moodle est un exemple de Commun numérique éducatif. Il peut être utilisé plutôt que Pronote pour les cours en ligne. Participer à la Forge des communs permet de mutualiser nos exercices et de favoriser le partage de ressources pédagogiques libres."
+    },
+    {
+      "id": 19,
+      "section": 4,
+      "text": "Quel est l'avantage principal de partager des ressources sur la Forge des communs ?",
+      "options": {
+        "a": "Gagner de l'argent",
+        "b": "Mutualiser les efforts et éviter la duplication",
+        "c": "Obtenir des certificats",
+        "d": "Augmenter sa popularité"
+      },
+      "educationalText": "Partager des ressources sur la Forge des communs permet de mutualiser les efforts et d'éviter la duplication. Au lieu que chaque enseignant crée ses propres exercices, on peut partager et réutiliser les ressources créées par d'autres, ce qui fait gagner du temps à tous et améliore la qualité des contenus pédagogiques."
+    },
+    {
+      "id": 20,
+      "section": 4,
+      "text": "Qu'est-ce qu'une licence Creative Commons dans le contexte éducatif ?",
+      "options": {
+        "a": "Une licence payante pour utiliser des ressources",
+        "b": "Une licence libre permettant le partage et la réutilisation",
+        "c": "Une licence restrictive",
+        "d": "Une licence uniquement pour les logiciels"
+      },
+      "educationalText": "Les licences Creative Commons sont des licences libres qui permettent le partage et la réutilisation de ressources éducatives. Elles offrent différents niveaux de liberté (attribution, partage à l'identique, usage commercial ou non) tout en garantissant que les créateurs sont crédités. C'est le type de licence utilisé sur la Forge des communs."
     },
     {
       "id": 9,
@@ -137,6 +233,30 @@
       "educationalText": "Le premier levier à la sobriété numérique est de sensibiliser les usagers. Les actions prioritaires incluent : sensibiliser les élèves à la sobriété numérique, éteindre les box internet le soir, et passer à Linux sur les vieux PCs. La sensibilisation est la base de tout changement de comportement."
     },
     {
+      "id": 21,
+      "section": 5,
+      "text": "Quelle action simple permet de réduire significativement la consommation énergétique à l'école ?",
+      "options": {
+        "a": "Augmenter la luminosité des écrans",
+        "b": "Éteindre les box internet et les ordinateurs le soir",
+        "c": "Utiliser plus d'appareils connectés",
+        "d": "Augmenter la qualité des vidéos"
+      },
+      "educationalText": "Éteindre les box internet et les ordinateurs le soir permet de réduire significativement la consommation énergétique. Une box allumée 24h/24 consomme autant qu'un réfrigérateur. Multiplié par le nombre de box dans une école, cela représente une économie d'énergie considérable."
+    },
+    {
+      "id": 22,
+      "section": 5,
+      "text": "Qu'est-ce que l'écoconception dans le numérique ?",
+      "options": {
+        "a": "Créer des sites web avec beaucoup d'animations",
+        "b": "Concevoir des services numériques en minimisant leur impact environnemental",
+        "c": "Utiliser uniquement du matériel neuf",
+        "d": "Augmenter la qualité des médias"
+      },
+      "educationalText": "L'écoconception dans le numérique consiste à concevoir des services numériques en minimisant leur impact environnemental dès la phase de conception. Cela inclut : optimiser le code, réduire le poids des pages web, limiter les requêtes serveur, et penser à la durée de vie et à la réparabilité des équipements."
+    },
+    {
       "id": 11,
       "section": 6,
       "text": "Quel est l'avantage principal de co-construction d'un outil numérique pour la classe avec ses usagers (élèves, profs, etc.) ?",
@@ -159,6 +279,30 @@
         "d": "Evernote"
       },
       "educationalText": "Framapad est un outil libre permettant d'écrire à plusieurs en temps réel. D'autres outils libres utiles pour la co-construction incluent Nextcloud (pour partager des fichiers) et BigBlueButton (pour les visioconférences). Ces outils libres favorisent la collaboration tout en respectant la vie privée et les données des utilisateurs."
+    },
+    {
+      "id": 23,
+      "section": 6,
+      "text": "Pourquoi impliquer les élèves dans la co-construction d'outils pédagogiques est-il bénéfique ?",
+      "options": {
+        "a": "Pour réduire les coûts",
+        "b": "Pour créer des outils adaptés à leurs besoins réels et favoriser leur engagement",
+        "c": "Pour éviter les bugs",
+        "d": "Pour gagner du temps"
+      },
+      "educationalText": "Impliquer les élèves dans la co-construction d'outils pédagogiques permet de créer des outils adaptés à leurs besoins réels et favorise leur engagement. Les élèves connaissent mieux que quiconque leurs difficultés et leurs attentes, ce qui permet de développer des solutions vraiment utiles et utilisées."
+    },
+    {
+      "id": 24,
+      "section": 6,
+      "text": "Quel est l'avantage d'utiliser des outils libres pour la co-construction plutôt que des outils propriétaires ?",
+      "options": {
+        "a": "Ils sont toujours plus rapides",
+        "b": "Ils respectent la vie privée et permettent l'adaptation aux besoins spécifiques",
+        "c": "Ils sont toujours gratuits",
+        "d": "Ils nécessitent moins de formation"
+      },
+      "educationalText": "Les outils libres pour la co-construction respectent la vie privée (pas de collecte de données à des fins commerciales) et permettent l'adaptation aux besoins spécifiques (code source modifiable). Contrairement aux outils propriétaires, ils offrent une vraie liberté d'utilisation et d'adaptation, essentielle pour la co-construction."
     }
   ]
 }

@@ -49,7 +49,7 @@ function MainGame({ uuid, title, initialPosition, initialSize, onClose, onClick,
     const [correctAnswersCount, setCorrectAnswersCount] = useState(0)
     const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
     
-    const maxScore = questions.length * 25 // 12 questions × 25 points max = 300 points
+    const maxScore = questions.length * 25 // 24 questions × 25 points max = 600 points
 
     const currentQuestion = questions[currentQuestionIndex]
     const isLastQuestion = currentQuestionIndex === questions.length - 1
