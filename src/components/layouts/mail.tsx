@@ -3,7 +3,7 @@ import Mailline from '../blocks/mailLine'
 import { useEffect, useState } from 'react';
 
 
-function Mail() {
+function Mail({ uuid, title, initialPosition, initialSize, onClose, onClick, shouldBlink }: { uuid: number, title: string, initialPosition: { x: number, y: number }, initialSize: { width: number, height: number }, onClose: () => void, onClick: (position: { x: number, y: number }) => void, shouldBlink: boolean }) {
     
 interface Mail {
     expediteur: string;
@@ -35,7 +35,7 @@ useEffect(() => {
 
 
     return (
-        <Window title="Mail" initialPosition={{ x: 200, y: 200 }} initialSize={{ width: 300, height: 200 }}>
+        <Window title={title} initialPosition={initialPosition} initialSize={initialSize} onClose={onClose} onClick={onClick} shouldBlink={shouldBlink}>
             <div className="w-full h-full">
                 {mails.map((mail, index) => (
                     <Mailline
