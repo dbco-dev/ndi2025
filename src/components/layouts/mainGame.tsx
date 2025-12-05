@@ -32,7 +32,7 @@ const sections: Section[] = questionsData.sections
 const badges: Badge[] = questionsData.badges
 const questions: Question[] = questionsData.questions
 
-function MainGame() {
+function MainGame({ uuid, title, initialPosition, initialSize, onClose, onClick, shouldBlink }: { uuid: number, title: string, initialPosition: { x: number, y: number }, initialSize: { width: number, height: number }, onClose: () => void, onClick: (position: { x: number, y: number }) => void, shouldBlink?: boolean }) {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
     const [loading, setLoading] = useState<string | null>(null)
     const [answerResults, setAnswerResults] = useState<Record<string, boolean>>({})
@@ -273,7 +273,7 @@ function MainGame() {
     // Écran de récapitulatif
     if (gameFinished) {
         return (
-            <Window title="Récapitulatif" initialPosition={{ x: 200, y: 200 }} initialSize={{ width: 800, height: 800 }}>
+            <Window title="Récapitulatif" initialPosition={{ x: 200, y: 200 }} initialSize={{ width: 800, height: 800 }} shouldBlink={shouldBlink}>
                 <div className="w-full h-full p-6 flex flex-col overflow-y-auto">
                     <div className="text-center mb-8">
                         <h1 className="text-3xl font-bold text-gray-800 mb-2">🎉 Questionnaire terminé !</h1>
@@ -395,7 +395,7 @@ function MainGame() {
     }
 
     return (
-        <Window title="Main Game" initialPosition={{ x: 200, y: 200 }} initialSize={{ width: 800, height: 800 }}>
+        <Window title={title} initialPosition={initialPosition} initialSize={initialSize} onClose={onClose} onClick={onClick} shouldBlink={shouldBlink}>
             <div className="w-full h-full p-6 flex flex-col">
                 {/* Barre de progression du score */}
                 <div className="mb-4 p-3 bg-gray-100 rounded-lg">

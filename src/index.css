@@ -76,3 +76,12 @@ button:focus-visible {
     /* background-color: #f9f9f9; */
   }
 }
+
+@keyframes shadowBlink {
+  0%, 100% {
+    box-shadow: 0 20px 25px -5px rgb(39 39 42 / 0.5), 0 8px 10px -6px rgb(39 39 42 / 0.5);
+  }
+  50% {
+    box-shadow: 0 25px 50px -12px rgb(39 39 42 / 0.8), 0 10px 15px -8px rgb(39 39 42 / 0.8);
+  }
+}
