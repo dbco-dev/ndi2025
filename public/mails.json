@@ -1,10 +1,10 @@
 [
   {
-    "expediteur": "Professeur",
-    "destinataire": "Marc",
+    "expediteur": "Marc",
+    "destinataire": "Professeur",
     "objet": "Réunion sur le numérique responsable",
     "date": "2025-12-05T09:15:00Z",
-    "contenu": "Salut Marc,\nHier, la direction nous a parlé de l’impact des mails. Savais-tu qu’un email avec une pièce jointe de 1 Mo, c’est équivalent à une ampoule allumée 1 minute ?\nJe me demande si on ne devrait pas limiter la taille des PJ dans nos échanges…\nÀ demain,"
+    "contenu": "Salut,\nHier, la direction nous a parlé de l’impact des mails. Savais-tu qu’un email avec une pièce jointe de 1 Mo, c’est équivalent à une ampoule allumée 1 minute ?\nJe me demande si on ne devrait pas limiter la taille des PJ dans nos échanges…\nÀ demain,"
   },
   {
     "expediteur": "Professeur",
@@ -14,11 +14,11 @@
     "contenu": "Bonjour M. Dupont,\nJ’ai 3 PCs en panne dans ma salle. Plutôt que de les jeter, ne pourrait-on pas les faire reconditionner ? J’ai lu que ça économisait jusqu’à 80% de CO2 ?\nMerci de me dire ce que tu en penses.\nCordialement,"
   },
   {
-    "expediteur": "Professeur",
-    "destinataire": "Thomas (ami)",
+    "expediteur": "Thomas (ami)",
+    "destinataire": "Professeur",
     "objet": "J’ai installé Linux !",
     "date": "2025-07-20T18:05:00Z",
-    "contenu": "Salut Thomas,\nJ’ai enfin osé installer Linux sur mon vieux PC. Résultat : il est devenu ultra-rapide ! Le plus drôle, c’est que j’ai choisi une distribution spécialement conçue pour l’éducation, elle s’appelle PrimTux ?\nJe te conseille vivement d’essayer !"
+    "contenu": "Salut,\nJ’ai enfin osé installer Linux sur mon vieux PC. Résultat : il est devenu ultra-rapide ! Le plus drôle, c’est que j’ai choisi une distribution spécialement conçue pour l’éducation, elle s’appelle PrimTux ?\nJe te conseille vivement d’essayer !"
   },
   {
     "expediteur": "Professeur",
