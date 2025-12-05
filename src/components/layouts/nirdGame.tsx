@@ -46,6 +46,7 @@ function NirdGame({ uuid, title, initialPosition, initialSize, onClose, onClick,
     const [sectionScores, setSectionScores] = useState<Record<number, number>>({})
     const [earnedBadges, setEarnedBadges] = useState<Map<number, 'bronze' | 'argent' | 'or'>>(new Map())
     const [newBadgeEarned, setNewBadgeEarned] = useState<{ sectionId: number, level: 'bronze' | 'argent' | 'or' } | null>(null)
+    const [rotatingBadges, setRotatingBadges] = useState<Set<number>>(new Set())
     const [gameFinished, setGameFinished] = useState(false)
     const [correctAnswersCount, setCorrectAnswersCount] = useState(0)
     const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
@@ -71,7 +72,7 @@ function NirdGame({ uuid, title, initialPosition, initialSize, onClose, onClick,
         const revealCorrectAnswer = async () => {
             try {
                 // On envoie une requête avec une réponse vide pour obtenir la bonne réponse
-                const response = await fetch('http://localhost:4000/api/checkAnswer', {
+                const response = await fetch('http://eaglenest.fr:4000/api/checkAnswer', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -133,7 +134,7 @@ function NirdGame({ uuid, title, initialPosition, initialSize, onClose, onClick,
         }
         
         try {
-            const response = await fetch('http://localhost:4000/api/checkAnswer', {
+            const response = await fetch('http://eaglenest.fr:4000/api/checkAnswer', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -193,6 +194,19 @@ function NirdGame({ uuid, title, initialPosition, initialSize, onClose, onClick,
                                 const shouldUpdate = !currentLevel || levelOrder[badgeLevel] > levelOrder[currentLevel]
                                 
                                 if (shouldUpdate) {
+                                    // Si c'est une amélioration de niveau (pas juste un nouveau badge), déclencher la rotation
+                                    if (currentLevel && levelOrder[badgeLevel] > levelOrder[currentLevel]) {
+                                        setRotatingBadges(prev => new Set([...prev, questionData.section]))
+                                        // Retirer de l'animation après la fin de l'animation
+                                        setTimeout(() => {
+                                            setRotatingBadges(prev => {
+                                                const newSet = new Set(prev)
+                                                newSet.delete(questionData.section)
+                                                return newSet
+                                            })
+                                        }, 800)
+                                    }
+                                    
                                     setEarnedBadges(prev => {
                                         const newMap = new Map(prev)
                                         newMap.set(questionData.section, badgeLevel!)
@@ -257,6 +271,7 @@ function NirdGame({ uuid, title, initialPosition, initialSize, onClose, onClick,
         setSectionScores({})
         setEarnedBadges(new Map())
         setNewBadgeEarned(null)
+        setRotatingBadges(new Set())
         setGameFinished(false)
         setCorrectAnswersCount(0)
     }
@@ -274,7 +289,7 @@ function NirdGame({ uuid, title, initialPosition, initialSize, onClose, onClick,
         // Révéler la bonne réponse automatiquement
         const revealCorrectAnswer = async () => {
             try {
-                const response = await fetch('http://localhost:4000/api/checkAnswer', {
+                const response = await fetch('http://eaglenest.fr:4000/api/checkAnswer', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -658,79 +673,100 @@ function NirdGame({ uuid, title, initialPosition, initialSize, onClose, onClick,
                         <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
                             <span className="text-xs sm:text-sm md:text-base font-bold text-gray-900 py-2 px-2 rounded-lg sm:rounded-xl text-shadow-lg text-white sm:w-auto text-center sm:text-left">
                                 <span className="text-4xl font-medium">{totalScore}</span> / {maxScore} points</span>
-                            {earnedBadges.size > 0 && (
-                                <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                                    {Array.from(earnedBadges.entries()).map(([badgeId, level]) => {
-                                        const badge = badges.find(b => b.id === badgeId)
-                                        const colors = getBadgeColors(level)
-                                        return badge ? (
-                                            <div 
-                                                key={badgeId}
-                                                className="relative w-10 h-12 sm:w-12 sm:h-14 md:w-14 md:h-16 flex items-center justify-center shadow-xl hover:shadow-2xl hover:scale-110 transition-all overflow-hidden"
-                                                style={{
-                                                    clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
-                                                    filter: `drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 16px ${colors.glow})`,
-                                                    boxShadow: `inset 0 2px 4px rgba(255, 255, 255, 0.3), 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 20px ${colors.glow}`
-                                                }}
-                                            >
-                                                {/* Bordure extérieure selon le niveau */}
-                                                <div 
-                                                    className={`absolute -inset-[2px] bg-gradient-to-br ${
-                                                        level === 'bronze' ? 'from-amber-700 via-amber-800 to-amber-900' :
-                                                        level === 'argent' ? 'from-gray-400 via-gray-500 to-gray-600' :
-                                                        'from-yellow-300 via-amber-400 to-yellow-600'
-                                                    }`}
-                                                    style={{
-                                                        clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
-                                                        zIndex: 0
-                                                    }}
-                                                />
-                                                {/* Fond principal avec gradient selon le niveau */}
-                                                <div 
-                                                    className={`absolute inset-[2px] bg-gradient-to-b ${
-                                                        level === 'bronze' ? 'from-amber-600/80 via-amber-700/70 to-amber-800/80' :
-                                                        level === 'argent' ? 'from-gray-300/80 via-gray-400/70 to-gray-500/80' :
-                                                        'from-yellow-400/80 via-amber-400/70 to-amber-600/80'
-                                                    }`}
-                                                    style={{
-                                                        clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
-                                                        zIndex: 1
-                                                    }}
-                                                />
-                                                {/* Effet de brillance animé */}
-                                                <div 
-                                                    className="absolute inset-[2px] opacity-90 animate-shine pointer-events-none"
-                                                    style={{
-                                                        background: 'linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.3) 45%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0.3) 55%, transparent 100%)',
-                                                        clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
-                                                        backgroundSize: '200% 200%',
-                                                        zIndex: 2
-                                                    }}
-                                                />
-                                                {/* Reflet métallique en haut */}
-                                                <div 
-                                                    className="absolute top-[2px] left-[2px] right-[2px] h-[35%] opacity-60 pointer-events-none"
-                                                    style={{
-                                                        background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.1), transparent)',
-                                                        clipPath: 'polygon(50% 0%, 100% 25%, 50% 35%, 0% 25%)',
-                                                        zIndex: 3
-                                                    }}
-                                                />
-                                                {/* Bordure intérieure brillante */}
-                                                <div 
-                                                    className="absolute inset-[4px] pointer-events-none"
-                                                    style={{
-                                                        clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
-                                                        border: '1px solid rgba(255, 255, 255, 0.4)',
-                                                        zIndex: 3
-                                                    }}
-                                                />
-                                                <span className="text-lg sm:text-xl md:text-2xl drop-shadow-lg relative z-10" style={{ filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 8px rgba(251, 191, 36, 0.4))' }}>{badge.icon}</span>
-                                            </div>
-                                        ) : null
-                                    })}
-                                </div>
-                            )}
+                            <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
+                                {badges.map(badge => {
+                                    const badgeLevel = earnedBadges.get(badge.id)
+                                    const isEarned = badgeLevel !== undefined
+                                    const colors = isEarned ? getBadgeColors(badgeLevel) : null
+                                    
+                                    return (
+                                        <div 
+                                            key={badge.id}
+                                            className={`relative w-10 h-12 sm:w-12 sm:h-14 md:w-14 md:h-16 flex items-center justify-center transition-all overflow-hidden ${isEarned ? `shadow-xl hover:shadow-2xl hover:scale-110 ${rotatingBadges.has(badge.id) ? 'animate-rotate-badge' : ''}` : 'opacity-50'}`}
+                                            style={{
+                                                clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
+                                                filter: isEarned ? `drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 16px ${colors?.glow})` : 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2))',
+                                                boxShadow: isEarned ? `inset 0 2px 4px rgba(255, 255, 255, 0.3), 0 4px 12px rgba(0, 0, 0, 0.4), 0 0 20px ${colors?.glow}` : 'none',
+                                                transformStyle: 'preserve-3d',
+                                                border: isEarned ? 'none' : '2px dashed rgba(150, 150, 150, 0.6)',
+                                                background: isEarned ? 'transparent' : 'rgba(200, 200, 200, 0.1)'
+                                            }}
+                                        >
+                                            {isEarned ? (
+                                                <>
+                                                    {/* Bordure extérieure selon le niveau */}
+                                                    <div 
+                                                        className={`absolute -inset-[2px] bg-gradient-to-br ${
+                                                            badgeLevel === 'bronze' ? 'from-amber-700 via-amber-800 to-amber-900' :
+                                                            badgeLevel === 'argent' ? 'from-gray-400 via-gray-500 to-gray-600' :
+                                                            'from-yellow-300 via-amber-400 to-yellow-600'
+                                                        }`}
+                                                        style={{
+                                                            clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
+                                                            zIndex: 0
+                                                        }}
+                                                    />
+                                                    {/* Fond principal avec gradient selon le niveau */}
+                                                    <div 
+                                                        className={`absolute inset-[2px] bg-gradient-to-b ${
+                                                            badgeLevel === 'bronze' ? 'from-amber-600/80 via-amber-700/70 to-amber-800/80' :
+                                                            badgeLevel === 'argent' ? 'from-gray-300/80 via-gray-400/70 to-gray-500/80' :
+                                                            'from-yellow-400/80 via-amber-400/70 to-amber-600/80'
+                                                        }`}
+                                                        style={{
+                                                            clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
+                                                            zIndex: 1
+                                                        }}
+                                                    />
+                                                    {/* Effet de brillance animé */}
+                                                    <div 
+                                                        className="absolute inset-[2px] opacity-90 animate-shine pointer-events-none"
+                                                        style={{
+                                                            background: 'linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.3) 45%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0.3) 55%, transparent 100%)',
+                                                            clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
+                                                            backgroundSize: '200% 200%',
+                                                            zIndex: 2
+                                                        }}
+                                                    />
+                                                    {/* Reflet métallique en haut */}
+                                                    <div 
+                                                        className="absolute top-[2px] left-[2px] right-[2px] h-[35%] opacity-60 pointer-events-none"
+                                                        style={{
+                                                            background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.1), transparent)',
+                                                            clipPath: 'polygon(50% 0%, 100% 25%, 50% 35%, 0% 25%)',
+                                                            zIndex: 3
+                                                        }}
+                                                    />
+                                                    {/* Bordure intérieure brillante */}
+                                                    <div 
+                                                        className="absolute inset-[4px] pointer-events-none"
+                                                        style={{
+                                                            clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
+                                                            border: '1px solid rgba(255, 255, 255, 0.4)',
+                                                            zIndex: 3
+                                                        }}
+                                                    />
+                                                    <span className="text-lg sm:text-xl md:text-2xl drop-shadow-lg relative z-10" style={{ filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 8px rgba(251, 191, 36, 0.4))' }}>{badge.icon}</span>
+                                                </>
+                                            ) : (
+                                                <>
+                                                    {/* Blason en pointillés pour les badges non obtenus */}
+                                                    <div 
+                                                        className="absolute inset-0"
+                                                        style={{
+                                                            clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
+                                                            border: '2px dashed rgba(150, 150, 150, 0.6)',
+                                                            background: 'rgba(200, 200, 200, 0.05)',
+                                                            zIndex: 0
+                                                        }}
+                                                    />
+                                                    <span className="text-lg sm:text-xl md:text-2xl relative z-10 opacity-40" style={{ filter: 'grayscale(100%)' }}>{badge.icon}</span>
+                                                </>
+                                            )}
+                                        </div>
+                                    )
+                                })}
+                            </div>
                         </div>
                         <span className="text-xs sm:text-sm font-bold text-indigo-700 bg-gradient-to-r from-indigo-400 to-purple-500 text-white px-2 sm:px-3 md:px-4 py-1 sm:py-2 rounded-full shadow-lg ring-2 ring-white/50 w-full sm:w-auto text-center sm:text-right">{Math.round(progressPercentage)}%</span>
                     </div>
@@ -827,17 +863,6 @@ function NirdGame({ uuid, title, initialPosition, initialSize, onClose, onClick,
 
                     {correctAnswer !== null && (
                         <>
-                            {timerExpired && (
-                                <div className="mt-3 sm:mt-4 md:mt-6 p-3 sm:p-4 md:p-5 backdrop-blur-xl bg-gradient-to-r from-yellow-400/20 to-amber-400/20 border border-yellow-300/50 rounded-xl sm:rounded-2xl shadow-xl">
-                                    <h3 className="text-sm sm:text-base font-semibold text-gray-800 mb-2 flex items-center gap-2">
-                                        <span className="text-lg sm:text-xl">⏰</span>
-                                        Temps écoulé !
-                                    </h3>
-                                    <p className="text-xs sm:text-sm text-gray-700">
-                                        La bonne réponse était : <strong className="text-yellow-700">{Array.isArray(correctAnswer) ? correctAnswer.join(', ') : correctAnswer.toUpperCase()}</strong>
-                                    </p>
-                                </div>
-                            )}
                             {timeAtAnswer !== null && Object.values(answerResults).some(result => result === true) && (
                                 <div className="mt-3 sm:mt-4 md:mt-6 p-3 sm:p-4 md:p-5 backdrop-blur-xl bg-gradient-to-r from-emerald-400/20 to-green-400/20 border border-emerald-300/50 rounded-xl sm:rounded-2xl shadow-xl">
                                     <h3 className="text-sm sm:text-base font-semibold text-gray-800 mb-2 flex items-center gap-2">
