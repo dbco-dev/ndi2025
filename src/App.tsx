@@ -90,11 +90,12 @@ function App() {
       <Desktop openApps={openApps.map((app) => app[1])}/>
       <AppIcon onOpenApp={handleOpenApp} appName="MainGame" />
       <AppIcon onOpenApp={handleOpenApp} appName="Mail" />
+      <AppIcon onOpenApp={handleOpenApp} appName="Troll" />
       <TopBar />
       {openApps.map((app) => (
         app[1] === "MainGame" 
         ? <MainGame key={app[0]} uuid={app[0]} title={app[1]} initialPosition={{ x: app[2], y: app[3] }} initialSize={{ width: 300, height: 200 }} onClose={() => handleCloseWindow(app[0])} onClick={(position) => handleWindowClick(app[0], position)} shouldBlink={blinkingWindows.has(app[0])} /> 
-        : app[1] === "Mail" 
+        : app[1] === "Troll" 
         ? <Troll key={app[0]} uuid={app[0]} title={app[1]} initialPosition={{ x: app[2], y: app[3] }} initialSize={{ width: 300, height: 200 }} onClose={() => handleCloseWindow(app[0])} onClick={(position) => handleWindowClick(app[0], position)} shouldBlink={blinkingWindows.has(app[0])} /> 
         : <Window key={app[0]} uuid={app[0]} title={app[1]} initialPosition={{ x: app[2], y: app[3] }} initialSize={{ width: 300, height: 200 }} onClose={() => handleCloseWindow(app[0])} onClick={(position) => handleWindowClick(app[0], position)} shouldBlink={blinkingWindows.has(app[0])}>
           <div className="w-full h-full"></div>
