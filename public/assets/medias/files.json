@@ -1,0 +1,123 @@
+{
+  ".txt": [
+
+    {
+      "questionId": "1.Q2",
+      "fileName": "Notes_perso.txt",
+      "path": "Bureau",
+      "snippet": "Un data center consomme autant d’électricité qu’une petite ville."
+    },
+    {
+      "questionId": "1.Q3",
+      "fileName": "Impact_smartphone.txt",
+      "path": "Bureau",
+      "snippet": "Il faut environ 2 ans d’utilisation pour qu’un smartphone consomme autant d’énergie que sa fabrication."
+    },
+    {
+      "questionId": "1.Q4",
+      "fileName": "Conseils_streaming.txt",
+      "path": "Projets",
+      "snippet": "il vaut mieux télécharger les vidéos que l’on regarde plusieurs fois plutôt que de les streamer en continu."
+    },
+    {
+      "questionId": "2.Q4",
+      "fileName": "Recyclage_vs_reconditionnement.txt",
+      "path": "Travail",
+      "snippet": "Le reconditionnement évite la destruction de l’appareil, contrairement au recyclage..."
+    },
+    {
+      "questionId": "5.Q3",
+      "fileName": "Consommation_énergie_ecole.txt",
+      "path": "Projets",
+      "snippet": "Penser à éteindre les box internet et les ordinateurs le soir..."
+    },
+    {
+      "questionId": "4.Q2",
+      "fileName": "Moodle ou pronote.txt",
+      "path": "Travail",
+      "snippet": "Savais-tu que Moodle est un exemple de Commun numérique éducatif ?"
+    },
+    {
+      "questionId": "6.Q2",
+      "fileName": "Idées_projets.txt",
+      "path": "Divers",
+      "snippet": "Framapad (pour écrire à plusieurs)"
+    }
+  ],
+  ".pdf": [
+    {
+      "questionId": "2.Q2",
+      "fileName": "Facture PC_classe.pdf",
+      "path": "Travail",
+      "snippet": "Coût PC reconditionné : 430€ / Coût neuf : 800€"
+    },
+    {
+      "questionId": "2.Q3",
+      "fileName": "Reconditionnement_info.pdf",
+      "path": "Travail",
+      "snippet": "Un ordinateur reconditionné peut tenir 4 à 5 ans (voire plus avec un bon entretien)."
+    },
+    {
+      "questionId": "3.Q2",
+      "fileName": "Pourquoi_Linux.pdf",
+      "path": "Perso",
+      "snippet": "Linux se distingue comme une solution efficace contre l’obsolescence programmée..."
+    },
+    {
+      "questionId": "4.Q3",
+      "fileName": "Forge_des_communs_bénéfices.pdf",
+      "path": "Travail",
+      "snippet": "En partageant nos ressources sur la Forge des communs, on mutualise les efforts..."
+    },
+    {
+      "questionId": "5.Q1",
+      "fileName": "E3D.pdf",
+      "path": "Projets",
+      "snippet": "Le label E3D (École ou Établissement en Démarche globale de Développement Durable)..."
+    },
+    {
+      "questionId": "5.Q2",
+      "fileName": "Plan_action_numérique.pdf",
+      "path": "Projets",
+      "snippet": "Actions prioritaires pour la sensibilisation à la sobriété numérique : – Sensibiliser les élèves..."
+    },
+    {
+      "questionId": "5.Q4",
+      "fileName": "Ecoconception_numérique.pdf",
+      "path": "Projets",
+      "snippet": "L’écoconception numérique consiste à concevoir des services et sites web en minimisant leur impact environnemental..."
+    },
+    {
+      "questionId": "6.Q1",
+      "fileName": "Ateliers co-construction d’un outil numérique.pdf",
+      "path": "Travail",
+      "snippet": "La co-construction d’un outil numérique avec ses usagers représente une approche innovante..."
+    },
+    {
+      "questionId": "6.Q4",
+      "fileName": "Outils_libres_co-construction.pdf",
+      "path": "Travail",
+      "snippet": "Les outils libres respectent davantage la vie privée [...] et on peut les adapter aux besoins spécifiques..."
+    }
+  ],
+  ".odt": [
+    {
+      "questionId": "4.Q4",
+      "fileName": "Licences_CC.odt",
+      "path": "Travail",
+      "snippet": "Les licences Creative Commons sont des licences libres qui permettent le partage et la réutilisation..."
+    },
+    {
+      "questionId": "6.Q3",
+      "fileName": "Co-construction_élèves.odt",
+      "path": "Travail",
+      "snippet": "Impliquer les élèves dans la co-construction permet de créer des outils vraiment adaptés à leurs besoins..."
+    },
+    {
+      "questionId": "3.Q4",
+      "fileName": "Budget_salle_informatique.odt",
+      "path": "Travail",
+      "snippet": "En passant à Linux, on supprime les coûts de licence par poste..."
+    }
+  ]
+}
