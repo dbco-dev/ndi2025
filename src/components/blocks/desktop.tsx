@@ -7,7 +7,6 @@ import Snake from '../layouts/snake'
 import Window from './window'
 import Files from './files'
 
-<<<<<<< HEAD
 interface IconPosition {
     x: number
     y: number
@@ -16,8 +15,6 @@ interface IconPosition {
 const GRID_SIZE = 100
 const STORAGE_KEY = 'desktop_icon_positions'
 
-=======
->>>>>>> 9420e5467f9ad4ade4bcafede7b7661a3dfcb9ba
 function Desktop() {
     const desktopRef = useRef<HTMLDivElement>(null)
     const [openApps, setOpenApps] = useState<[uuid: number, title: string, x: number, y: number][]>([])
@@ -174,11 +171,6 @@ function Desktop() {
     
     return (
         <div className="absolute w-full bottom-0 top-6 left-0">
-            <AppIcon onOpenApp={handleOpenApp} appName="MainGame" />
-            <AppIcon onOpenApp={handleOpenApp} appName="Mail" />
-            <AppIcon onOpenApp={handleOpenApp} appName="Troll" />
-            <AppIcon onOpenApp={handleOpenApp} appName="Snake" />
-            <AppIcon onOpenApp={handleOpenApp} appName="Files" />
         <div 
             ref={desktopRef}
             data-desktop
@@ -224,6 +216,16 @@ function Desktop() {
                 onPositionChange={handleIconPositionChange}
                 gridSize={GRID_SIZE}
             />
+            <AppIcon 
+                onOpenApp={handleOpenApp} 
+                appName="Files" 
+                label="Files.app" 
+                isActive={activeIcon === "Files"} 
+                onActivate={() => setActiveIcon("Files")}
+                position={getIconPosition("Files")}
+                onPositionChange={handleIconPositionChange}
+                gridSize={GRID_SIZE}
+            />
 
 
       {openApps.map((app) => (
@@ -241,6 +243,7 @@ function Desktop() {
           <div className="w-full h-full"></div>
         </Window>
       ))}
+        </div>
         </div>
     )
 }
